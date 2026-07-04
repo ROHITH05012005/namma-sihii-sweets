@@ -7,6 +7,7 @@ import Shop from './pages/Shop';
 import Cart from './pages/Cart';
 import Login from './pages/Login';
 import Checkout from './pages/Checkout';
+import Admin from './pages/Admin';
 import './App.css';
 
 // A simple About component placeholder
@@ -32,6 +33,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/about" element={<About />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </main>
       <Footer />

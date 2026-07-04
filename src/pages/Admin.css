@@ -1,0 +1,140 @@
+.admin-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.admin-header {
+  padding: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.admin-header h1 {
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.admin-loading {
+  text-align: center;
+  padding: 4rem;
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+}
+
+.admin-orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.no-orders {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-secondary);
+}
+
+.admin-order-card {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 1rem;
+}
+
+.order-header h3 {
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.order-status {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.order-status.pending_cod, .order-status.pending_upi, .order-status.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.order-status.delivered {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.order-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.order-details h4, .order-address h4, .order-items h4 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.order-details p, .order-address p {
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.order-details strong {
+  color: var(--text-primary);
+}
+
+.order-items ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+}
+
+.order-items li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  color: var(--text-secondary);
+}
+
+.order-total {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--primary);
+  text-align: right;
+}
+
+.order-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.deliver-btn {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: var(--radius);
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.deliver-btn:hover {
+  background-color: var(--primary-dark);
+}
+
+@media (max-width: 768px) {
+  .order-grid {
+    grid-template-columns: 1fr;
+  }
+}

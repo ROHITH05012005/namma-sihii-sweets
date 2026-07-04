@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { MapPin } from 'lucide-react';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '../firebase';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import './Checkout.css';
@@ -63,12 +64,18 @@ const Checkout = () => {
 
     try {
       if (paymentMethod === 'cod' || paymentMethod === 'upi') {
-        // Direct order creation without Razorpay
-        await axios.post('/api/orders/create', { 
-          amount: finalAmount,
+        // Save order directly to Firestore
+        await addDoc(collection(db, 'orders'), {
           userId: user.id,
+          userName: user.name,
+          userPhone: user.phone || 'N/A',
+          amount: finalAmount,
           method: paymentMethod,
-          upiRef: upiRef
+          upiRef: upiRef,
+          address: address,
+          items: cart,
+          status: paymentMethod === 'cod' ? 'pending_cod' : 'pending_upi',
+          createdAt: serverTimestamp()
         });
         
         alert(`Order Placed Successfully! Payment Method: ${paymentMethod.toUpperCase()}`);
