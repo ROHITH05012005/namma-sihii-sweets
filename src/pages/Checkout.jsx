@@ -12,7 +12,7 @@ const Checkout = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [address, setAddress] = useState({ street: '', city: '', state: '', pincode: '' });
-  const [paymentMethod, setPaymentMethod] = useState('razorpay');
+  const [paymentMethod, setPaymentMethod] = useState('cod');
   const [upiRef, setUpiRef] = useState('');
 
   useEffect(() => {
@@ -47,17 +47,6 @@ const Checkout = () => {
       alert('Location access denied. Please enter manually.');
     });
   };
-
-  const loadRazorpay = () => {
-    return new Promise((resolve) => {
-      const script = document.createElement('script');
-      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-      script.onload = () => resolve(true);
-      script.onerror = () => resolve(false);
-      document.body.appendChild(script);
-    });
-  };
-
   const handlePayment = async () => {
     if (!address.street || !address.city || !address.pincode) {
       alert("Please fill the address details");
@@ -87,59 +76,7 @@ const Checkout = () => {
         navigate('/');
         return;
       }
-
-      // Razorpay Flow
-      const res = await loadRazorpay();
-
-      if (!res) {
-        alert('Razorpay SDK failed to load. Are you online?');
-        setLoading(false);
-        return;
-      }
-
-      const { data: order } = await axios.post('/api/orders/create', { 
-        amount: finalAmount,
-        userId: user.id,
-        method: 'razorpay'
-      });
-
-      const options = {
-        key: 'rzp_test_mockkeyid12345',
-        amount: order.amount,
-        currency: order.currency,
-        name: 'Namma Sihii Sweets',
-        description: 'Authentic Indian Sweets Order',
-        order_id: order.id,
-        handler: async function (response) {
-          try {
-            const verifyRes = await axios.post('/api/orders/verify', {
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature
-            });
-            
-            if (verifyRes.data.message === "Payment verified successfully") {
-              clearCart();
-              alert("Payment Successful! Your order has been placed.");
-              navigate('/');
-            }
-          } catch (err) {
-            alert("Payment Verification Failed!");
-          }
-        },
-        prefill: {
-          name: user.name,
-          email: user.email || '',
-          contact: user.phone || ''
-        },
-        theme: {
-          color: '#d32f2f'
-        }
-      };
-
-      const paymentObject = new window.Razorpay(options);
-      paymentObject.open();
-    } catch (error) {
+    } catch (err) {
       console.error(error);
       alert('Failed to initialize payment.');
     } finally {
@@ -195,16 +132,8 @@ const Checkout = () => {
               />
             </div>
           </div>
-          
           <h2 style={{ marginTop: '32px' }}>Payment Method</h2>
           <div className="payment-options">
-            <div className={`payment-option ${paymentMethod === 'razorpay' ? 'selected' : ''}`} onClick={() => setPaymentMethod('razorpay')}>
-              <input type="radio" checked={paymentMethod === 'razorpay'} readOnly />
-              <div>
-                <strong>Pay via Razorpay</strong>
-                <p>Credit/Debit Card, NetBanking</p>
-              </div>
-            </div>
             <div className={`payment-option ${paymentMethod === 'cod' ? 'selected' : ''}`} onClick={() => setPaymentMethod('cod')}>
               <input type="radio" checked={paymentMethod === 'cod'} readOnly />
               <div>
