@@ -1,0 +1,35 @@
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.btn-logout {
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.btn-logout:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.btn-login {
+  font-weight: 600;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  padding: 6px 16px;
+  border-radius: 20px;
+  transition: var(--transition);
+}
+
+.btn-login:hover {
+  background: var(--primary);
+  color: var(--text-on-primary);
+}
