@@ -29,7 +29,7 @@ const Navbar = () => {
           {user ? (
             <div className="user-menu">
               <span className="user-name">Hi, {user.name.split(' ')[0]}</span>
-              <Link to="/admin" className="btn-login" style={{ marginLeft: '10px', background: '#333' }}>Dashboard</Link>
+              <Link to="/admin" className="btn-admin" style={{ fontSize: '0.9rem', color: 'var(--primary)', textDecoration: 'underline', marginLeft: '10px' }}>Dashboard</Link>
               <button className="btn-logout" onClick={logout} style={{ marginLeft: '10px' }}>Logout</button>
             </div>
           ) : (
