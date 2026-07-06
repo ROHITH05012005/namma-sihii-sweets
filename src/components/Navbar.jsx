@@ -22,7 +22,7 @@ const Navbar = () => {
           <Link to="/" onClick={() => setIsOpen(false)}>Home</Link>
           <Link to="/shop" onClick={() => setIsOpen(false)}>Shop</Link>
           <Link to="/about" onClick={() => setIsOpen(false)}>About Us</Link>
-          {user && <Link to="/admin" onClick={() => setIsOpen(false)} style={{ color: 'var(--primary)', fontWeight: 'bold' }}>Admin</Link>}
+          {user && <Link to="/admin" onClick={() => setIsOpen(false)}>Admin</Link>}
         </nav>
         
         <div className="navbar-actions">
