@@ -95,6 +95,21 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Latest Arrivals Section */}
+      <section className="section latest-arrivals-section" style={{ backgroundColor: 'var(--surface-hover)' }}>
+        <div className="container">
+          <div className="section-header-flex">
+            <h2 className="section-title" style={{ marginBottom: 0 }}>Latest Arrivals</h2>
+            <Link to="/shop" className="view-all-link">Shop New <ArrowRight size={16} /></Link>
+          </div>
+          <div className="bestsellers-grid">
+            {products.filter(p => p.isNew).slice(0, 3).map(product => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Feature Highlight */}
       <section className="section feature-section">
         <div className="container feature-container glass-panel">
