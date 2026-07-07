@@ -34,7 +34,7 @@ const Navbar = () => {
         <div className="container navbar-main-row">
           {/* Left: Logo */}
           <Link to="/" className="navbar-logo" onClick={() => setIsOpen(false)}>
-            <img src="/logo_blended.png" alt="Namma Sihii Sweets Logo" style={{ height: '50px', borderRadius: '4px' }} />
+            <img src="/logo_blended.png" alt="Namma Sihii Sweets Logo" style={{ height: '75px', borderRadius: '4px' }} />
           </Link>
           
           {/* Center: Search Bar */}
