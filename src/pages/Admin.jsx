@@ -7,6 +7,7 @@ import { collection, query, orderBy, onSnapshot, doc, updateDoc, setDoc, deleteD
 import { products as localProducts } from '../data/products';
 import { Package, ShoppingBag, LayoutList, Trash2, Edit } from 'lucide-react';
 import ProductModal from '../components/admin/ProductModal';
+import CategoryModal from '../components/admin/CategoryModal';
 import './Admin.css';
 
 const Admin = () => {
@@ -21,9 +22,11 @@ const Admin = () => {
   const [fetching, setFetching] = useState(true);
   const [initLoading, setInitLoading] = useState(false);
   
-  // Modal State
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // Modal States
+  const [isProductModalOpen, setIsProductModalOpen] = useState(false);
   const [productToEdit, setProductToEdit] = useState(null);
+  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
+  const [categoryToEdit, setCategoryToEdit] = useState(null);
 
   useEffect(() => {
     if (!loading && (!user || !user.isAdmin)) {
@@ -97,12 +100,12 @@ const Admin = () => {
 
   const handleAddProduct = () => {
     setProductToEdit(null);
-    setIsModalOpen(true);
+    setIsProductModalOpen(true);
   };
 
   const handleEditProduct = (product) => {
     setProductToEdit(product);
-    setIsModalOpen(true);
+    setIsProductModalOpen(true);
   };
 
   if (loading || fetching) return <div className="admin-loading">Loading Dashboard...</div>;
@@ -269,7 +272,7 @@ const Admin = () => {
                     }} disabled={initLoading}>
                       {initLoading ? 'Migrating...' : 'Migrate Categories to Firebase'}
                     </button>
-                    <button className="btn-primary" onClick={() => alert('Add category modal coming soon!')}>Add New Category</button>
+                    <button className="btn-primary" onClick={() => { setCategoryToEdit(null); setIsCategoryModalOpen(true); }}>Add New Category</button>
                   </div>
                 </div>
                 
@@ -291,7 +294,7 @@ const Admin = () => {
                             <td>{cat.image ? <img src={cat.image} style={{width:'50px', height:'50px', objectFit:'cover', borderRadius:'4px'}} /> : 'No image'}</td>
                             <td>
                               <div className="action-buttons">
-                                <button className="icon-btn edit" onClick={() => alert('Edit coming soon')}><Edit size={16}/></button>
+                                <button className="icon-btn edit" onClick={() => { setCategoryToEdit(cat); setIsCategoryModalOpen(true); }}><Edit size={16}/></button>
                                 <button className="icon-btn delete" onClick={async () => {
                                   if(window.confirm(`Delete ${cat.name}?`)) {
                                      try {
@@ -313,9 +316,15 @@ const Admin = () => {
       </div>
       
       <ProductModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
+        isOpen={isProductModalOpen} 
+        onClose={() => setIsProductModalOpen(false)} 
         productToEdit={productToEdit} 
+      />
+      
+      <CategoryModal
+        isOpen={isCategoryModalOpen}
+        onClose={() => setIsCategoryModalOpen(false)}
+        categoryToEdit={categoryToEdit}
       />
     </div>
   );
