@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCategories } from '../context/CategoryContext';
 import './Footer.css';
 
 const Footer = () => {
   const { categories } = useCategories();
+  const [email, setEmail] = useState('');
+  const [subscribed, setSubscribed] = useState(false);
+
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    if (email) {
+      setSubscribed(true);
+      setEmail('');
+      setTimeout(() => setSubscribed(false), 3000);
+    }
+  };
 
   return (
     <footer className="footer-container">
@@ -46,10 +57,22 @@ const Footer = () => {
         <div className="footer-newsletter">
           <h3>Stay Sweet</h3>
           <p>Subscribe to our newsletter for updates on new arrivals and special offers.</p>
-          <form className="newsletter-form" onSubmit={(e) => e.preventDefault()}>
-            <input type="email" placeholder="Your email address" required />
-            <button type="submit" className="btn-primary">Subscribe</button>
-          </form>
+          {subscribed ? (
+            <div style={{ color: 'var(--secondary)', padding: '10px 0', fontWeight: 'bold' }}>
+              Thanks for subscribing!
+            </div>
+          ) : (
+            <form className="newsletter-form" onSubmit={handleSubscribe}>
+              <input 
+                type="email" 
+                placeholder="Your email address" 
+                required 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <button type="submit" className="btn-primary">Subscribe</button>
+            </form>
+          )}
         </div>
       </div>
       
