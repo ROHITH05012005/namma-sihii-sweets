@@ -68,17 +68,24 @@
   overflow: hidden;
   background-size: cover;
   background-position: center;
+  border: 4px solid var(--secondary); /* Gold border */
+  transition: var(--transition);
 }
 
-.category-card:nth-child(1) { background-image: url('https://images.unsplash.com/photo-1601050690597-df0568f70950?w=500&q=80'); }
-.category-card:nth-child(2) { background-image: url('https://images.unsplash.com/photo-1634591419793-792abdc7f201?w=500&q=80'); }
-.category-card:nth-child(3) { background-image: url('https://images.unsplash.com/photo-1605807646983-377bc5a76493?w=500&q=80'); }
-.category-card:nth-child(4) { background-image: url('https://images.unsplash.com/photo-1627844642677-9b48c691f1b6?w=500&q=80'); }
+.category-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+.category-card:nth-child(1) { background-image: url('/images/traditional_sweets_1783391365914.png'); }
+.category-card:nth-child(2) { background-image: url('/images/bengali_sweets_1783391376097.png'); }
+.category-card:nth-child(3) { background-image: url('/images/sugar_free_1783391385498.png'); }
+.category-card:nth-child(4) { background-image: url('/images/namkeen_1783391394817.png'); }
 
 .category-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(154, 0, 7, 0.9), rgba(154, 0, 7, 0.2));
+  background: linear-gradient(to top, rgba(42, 5, 10, 0.9), transparent);
   display: flex;
   align-items: flex-end;
   padding: 24px;
@@ -86,20 +93,23 @@
 }
 
 .category-card:hover .category-overlay {
-  background: linear-gradient(to top, rgba(211, 47, 47, 0.9), rgba(211, 47, 47, 0.4));
+  background: linear-gradient(to top, rgba(197, 160, 89, 0.95), rgba(197, 160, 89, 0.3)); /* Gold gradient on hover */
 }
 
 .category-overlay h3 {
-  color: #ffffff;
-  font-family: var(--font-sans);
-  font-size: 1.25rem;
+  color: var(--background);
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
   margin: 0;
   transform: translateY(10px);
   transition: var(--transition);
+  text-align: center;
+  width: 100%;
 }
 
 .category-card:hover .category-overlay h3 {
   transform: translateY(0);
+  color: var(--primary-dark);
 }
 
 /* Bestsellers */
