@@ -48,10 +48,48 @@ const Navbar = () => {
       {/* Secondary Category Navigation */}
       <div className="category-nav">
         <div className="container category-nav-container">
-          {['Sweets', 'Namkeens', 'Snacks', 'Bakery & Boulangerie', 'Chocolates', 'Gifting', 'Candles', 'Fragrances', 'Ice creams', 'Tea'].map(cat => (
-            <Link key={cat} to={`/shop?category=${encodeURIComponent(cat)}`} className="category-nav-link">
-              {cat}
-            </Link>
+          {[
+            { 
+              name: 'Sweets', 
+              dropdown: [
+                'Ghewars', 
+                'Ghee & Khova Sweets', 
+                'Packed Sweets', 
+                'Assorted Sweets', 
+                'Special Kaju Sweets', 
+                'All Sweet Delights', 
+                'Bengali Sweets', 
+                'View All'
+              ] 
+            },
+            { name: 'Namkeens' },
+            { name: 'Snacks' },
+            { name: 'Bakery & Boulangerie' },
+            { name: 'Chocolates' },
+            { name: 'Gifting' },
+            { name: 'Candles' },
+            { name: 'Fragrances' },
+            { name: 'Ice creams' },
+            { name: 'Tea' }
+          ].map(cat => (
+            <div key={cat.name} className="nav-item-dropdown">
+              <Link to={`/shop?category=${encodeURIComponent(cat.name)}`} className="category-nav-link">
+                {cat.name} {cat.dropdown && <span className="dropdown-arrow">▼</span>}
+              </Link>
+              {cat.dropdown && (
+                <div className="dropdown-menu">
+                  {cat.dropdown.map(subItem => (
+                    <Link 
+                      key={subItem} 
+                      to={subItem === 'View All' ? `/shop?category=${encodeURIComponent(cat.name)}` : `/shop?category=${encodeURIComponent(cat.name)}&subcategory=${encodeURIComponent(subItem)}`} 
+                      className="dropdown-item"
+                    >
+                      {subItem}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
           ))}
         </div>
       </div>
