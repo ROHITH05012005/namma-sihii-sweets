@@ -13,33 +13,18 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-  const isLocalAdmin = localStorage.getItem('adminToken') === 'true';
-  
-  const [user, setUser] = useState(isLocalAdmin ? {
-    id: 'admin-local',
-    name: 'Admin',
-    email: 'admin@nammasihii.com',
-    isAdmin: true
-  } : null);
-  
-  const [token, setToken] = useState(isLocalAdmin ? 'mock-admin-token' : null);
-  const [loading, setLoading] = useState(!isLocalAdmin);
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check for hardcoded admin backdoor
-    if (isLocalAdmin) {
-      setLoading(false);
-    }
-
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      if (localStorage.getItem('adminToken') === 'true') return; // Ignore if local admin is logged in
-
       if (currentUser) {
         setUser({
           id: currentUser.uid,
           name: currentUser.displayName || currentUser.email?.split('@')[0] || 'User',
           email: currentUser.email,
-          isAdmin: currentUser.email === 'admin@nammasihii.com'
+          isAdmin: currentUser.email === 'rohib1438@gmail.com'
         });
         const idToken = await currentUser.getIdToken();
         setToken(idToken);
@@ -80,11 +65,6 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    if (localStorage.getItem('adminToken') === 'true') {
-      localStorage.removeItem('adminToken');
-      window.location.href = '/';
-      return;
-    }
     await signOut(auth);
   };
 

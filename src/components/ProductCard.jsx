@@ -1,10 +1,23 @@
 import React from 'react';
 import { ShoppingCart } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import './ProductCard.css';
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useCart();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleAddToCart = () => {
+    if (!user) {
+      alert("Please login to add items to your cart!");
+      navigate('/login');
+      return;
+    }
+    addToCart(product);
+  };
 
   return (
     <div className="product-card glass-panel">
@@ -21,7 +34,7 @@ const ProductCard = ({ product }) => {
           <span className="product-price">₹{product.price} <span className="weight-unit">/ {product.weight}</span></span>
           <button 
             className="btn-add-cart"
-            onClick={() => addToCart(product)}
+            onClick={handleAddToCart}
             title="Add to cart"
           >
             <ShoppingCart size={20} />

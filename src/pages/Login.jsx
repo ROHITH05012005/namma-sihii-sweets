@@ -42,25 +42,13 @@ const Login = () => {
     setLoading(true);
 
     const normalizedEmail = email.trim().toLowerCase();
-    const normalizedPass = password.replace(/\s/g, ''); // Remove spaces
-
-    // Magic backdoor for admin bypasses Firebase completely due to operation-not-allowed
-    if (normalizedEmail === 'admin' && normalizedPass === 'admin123') {
-      alert("Admin Login Successful!");
-      localStorage.setItem('adminToken', 'true');
-      window.location.href = '/'; // Hard reload to initialize mock user in AuthContext
-      return;
-    } else if (normalizedEmail === 'admin' && normalizedPass !== 'admin123') {
-       setError("Invalid admin password. Try 'admin123'");
-       setLoading(false);
-       return;
-    }
+    const normalizedPass = password.trim();
 
     if (isRegister) {
-      const result = await registerWithEmail(email, password);
+      const result = await registerWithEmail(normalizedEmail, normalizedPass);
       if (!result.success) setError(result.message);
     } else {
-      const result = await loginWithEmail(email, password);
+      const result = await loginWithEmail(normalizedEmail, normalizedPass);
       if (!result.success) setError(result.message);
     }
     setLoading(false);
@@ -101,7 +89,7 @@ const Login = () => {
           <div className="phone-login-section">
             <form onSubmit={handleEmailAuth} className="login-form">
               <div className="form-group">
-                <label>Email (or 'admin')</label>
+                <label>Email Address</label>
                 <input 
                   type="text" 
                   value={email} 
