@@ -2,24 +2,37 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { db } from '../firebase';
-import { collection, query, orderBy, onSnapshot, doc, updateDoc } from 'firebase/firestore';
+import { collection, query, orderBy, onSnapshot, doc, updateDoc, setDoc, deleteDoc } from 'firebase/firestore';
+import { products as localProducts } from '../data/products';
+import { Package, ShoppingBag, LayoutList, Trash2, Edit } from 'lucide-react';
+import ProductModal from '../components/admin/ProductModal';
 import './Admin.css';
 
 const Admin = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState('orders');
+  
+  // Data States
   const [orders, setOrders] = useState([]);
+  const [products, setProducts] = useState([]);
   const [fetching, setFetching] = useState(true);
+  const [initLoading, setInitLoading] = useState(false);
+  
+  // Modal State
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [productToEdit, setProductToEdit] = useState(null);
 
-  // Simple protection: only logged in users can see this for now.
   useEffect(() => {
-    if (!loading && !user) {
-      navigate('/login');
+    if (!loading && (!user || !user.isAdmin)) {
+      alert("Unauthorized Access. Only admins can view this page.");
+      navigate('/');
     }
   }, [user, loading, navigate]);
 
+  // Fetch Orders
   useEffect(() => {
-    if (!user) return;
+    if (!user || !user.isAdmin) return;
     const q = query(collection(db, 'orders'), orderBy('createdAt', 'desc'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const ordersData = [];
@@ -27,86 +40,233 @@ const Admin = () => {
         ordersData.push({ id: doc.id, ...doc.data() });
       });
       setOrders(ordersData);
-      setFetching(false);
     });
-
     return () => unsubscribe();
   }, [user]);
 
-  const markDelivered = async (orderId) => {
-    try {
-      const orderRef = doc(db, 'orders', orderId);
-      await updateDoc(orderRef, {
-        status: 'delivered'
+  // Fetch Products
+  useEffect(() => {
+    if (!user || !user.isAdmin) return;
+    const q = query(collection(db, 'products'));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const productsData = [];
+      snapshot.forEach((doc) => {
+        productsData.push({ id: doc.id, ...doc.data() });
       });
+      setProducts(productsData);
+      setFetching(false);
+    });
+    return () => unsubscribe();
+  }, [user]);
+
+  const updateOrderStatus = async (orderId, newStatus) => {
+    try {
+      await updateDoc(doc(db, 'orders', orderId), { status: newStatus });
     } catch (error) {
       alert("Failed to update status.");
       console.error(error);
     }
   };
 
+  const deleteProduct = async (productId) => {
+    if (window.confirm("Are you sure you want to delete this product?")) {
+      try {
+        await deleteDoc(doc(db, 'products', productId));
+      } catch (error) {
+        alert("Failed to delete product.");
+      }
+    }
+  };
+
+  const initializeDatabase = async () => {
+    setInitLoading(true);
+    try {
+      for (let p of localProducts) {
+        await setDoc(doc(db, 'products', p.id.toString()), p);
+      }
+      alert("Database initialized successfully with " + localProducts.length + " products!");
+    } catch (error) {
+      console.error(error);
+      alert("Failed to initialize database.");
+    } finally {
+      setInitLoading(false);
+    }
+  };
+
+  const handleAddProduct = () => {
+    setProductToEdit(null);
+    setIsModalOpen(true);
+  };
+
+  const handleEditProduct = (product) => {
+    setProductToEdit(product);
+    setIsModalOpen(true);
+  };
+
   if (loading || fetching) return <div className="admin-loading">Loading Dashboard...</div>;
 
   return (
-    <div className="admin-container">
-      <div className="admin-header glass-panel">
-        <h1>Orders Dashboard</h1>
-        <p>Manage your incoming orders securely in real-time.</p>
-      </div>
+    <div className="admin-container section">
+      <div className="container">
+        <div className="admin-layout">
+          {/* Sidebar */}
+          <aside className="admin-sidebar glass-panel">
+            <h2>Admin Panel</h2>
+            <nav className="admin-nav">
+              <button 
+                className={`admin-nav-btn ${activeTab === 'orders' ? 'active' : ''}`}
+                onClick={() => setActiveTab('orders')}
+              >
+                <ShoppingBag size={18} /> Orders
+              </button>
+              <button 
+                className={`admin-nav-btn ${activeTab === 'products' ? 'active' : ''}`}
+                onClick={() => setActiveTab('products')}
+              >
+                <Package size={18} /> Products
+              </button>
+              <button 
+                className={`admin-nav-btn ${activeTab === 'categories' ? 'active' : ''}`}
+                onClick={() => setActiveTab('categories')}
+              >
+                <LayoutList size={18} /> Categories
+              </button>
+            </nav>
+          </aside>
 
-      <div className="admin-orders-list">
-        {orders.length === 0 ? (
-          <div className="no-orders glass-panel">No orders yet.</div>
-        ) : (
-          orders.map((order) => (
-            <div key={order.id} className="admin-order-card glass-panel">
-              <div className="order-header">
-                <h3>Order #{order.id.slice(-6).toUpperCase()}</h3>
-                <span className={`order-status ${order.status || 'pending'}`}>{(order.status || 'pending').replace('_', ' ').toUpperCase()}</span>
-              </div>
-              
-              <div className="order-grid">
-                <div className="order-details">
-                  <h4>Customer Details</h4>
-                  <p><strong>Name:</strong> {order.userName || 'Unknown'}</p>
-                  <p><strong>Phone:</strong> {order.userPhone || 'N/A'}</p>
-                  <p><strong>Method:</strong> {order.method?.toUpperCase()}</p>
-                  {order.method === 'upi' && <p><strong>UPI Ref:</strong> {order.upiRef}</p>}
+          {/* Main Content */}
+          <main className="admin-main glass-panel">
+            {activeTab === 'orders' && (
+              <div className="admin-tab-content">
+                <div className="tab-header">
+                  <h2>Order Management</h2>
                 </div>
                 
-                <div className="order-address">
-                  <h4>Delivery Address</h4>
-                  <p>{order.address?.street}</p>
-                  <p>{order.address?.city} - {order.address?.pincode}</p>
-                  <p>{order.address?.state}</p>
+                <div className="orders-table-wrapper">
+                  {orders.length === 0 ? (
+                    <p>No orders found.</p>
+                  ) : (
+                    <table className="admin-table">
+                      <thead>
+                        <tr>
+                          <th>Order ID</th>
+                          <th>Customer</th>
+                          <th>Amount</th>
+                          <th>Method</th>
+                          <th>Status</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {orders.map(order => (
+                          <tr key={order.id}>
+                            <td>{order.id.slice(-6).toUpperCase()}</td>
+                            <td>{order.userName} ({order.userPhone})</td>
+                            <td>₹{order.amount}</td>
+                            <td>{order.method?.toUpperCase()}</td>
+                            <td>
+                              <span className={`status-badge ${order.status}`}>
+                                {(order.status || 'pending').replace('_', ' ').toUpperCase()}
+                              </span>
+                            </td>
+                            <td>
+                              <select 
+                                value={order.status} 
+                                onChange={(e) => updateOrderStatus(order.id, e.target.value)}
+                                className="status-dropdown"
+                              >
+                                <option value="pending_cod">Pending COD</option>
+                                <option value="pending_upi">Pending UPI</option>
+                                <option value="processing">Processing</option>
+                                <option value="shipped">Shipped</option>
+                                <option value="delivered">Delivered</option>
+                                <option value="cancelled">Cancelled</option>
+                              </select>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  )}
                 </div>
               </div>
+            )}
 
-              <div className="order-items">
-                <h4>Items</h4>
-                <ul>
-                  {order.items?.map((item, idx) => (
-                    <li key={idx}>
-                      {item.name} (x{item.quantity}) - ₹{item.price * item.quantity}
-                    </li>
-                  ))}
-                </ul>
-                <div className="order-total">
-                  Total: ₹{order.amount}
+            {activeTab === 'products' && (
+              <div className="admin-tab-content">
+                <div className="tab-header">
+                  <h2>Product Catalog</h2>
+                  <button className="btn-primary" onClick={handleAddProduct}>Add New Product</button>
+                </div>
+                
+                {products.length === 0 ? (
+                  <div className="empty-state">
+                    <h3>Database is empty</h3>
+                    <p>You haven't added any products to Firebase yet.</p>
+                    <button 
+                      className="btn-primary" 
+                      onClick={initializeDatabase}
+                      disabled={initLoading}
+                    >
+                      {initLoading ? 'Migrating...' : 'Migrate Local Products to Firebase'}
+                    </button>
+                  </div>
+                ) : (
+                  <div className="products-table-wrapper">
+                    <table className="admin-table">
+                      <thead>
+                        <tr>
+                          <th>Image</th>
+                          <th>Name</th>
+                          <th>Category</th>
+                          <th>Price</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {products.map(product => (
+                          <tr key={product.id}>
+                            <td><img src={product.image} alt={product.name} className="admin-product-img" /></td>
+                            <td><strong>{product.name}</strong></td>
+                            <td>{product.category} {product.subcategory ? `> ${product.subcategory}` : ''}</td>
+                            <td>₹{product.price}</td>
+                            <td>
+                              <div className="action-buttons">
+                                <button className="icon-btn edit" onClick={() => handleEditProduct(product)}><Edit size={16}/></button>
+                                <button className="icon-btn delete" onClick={() => deleteProduct(product.id)}><Trash2 size={16}/></button>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {activeTab === 'categories' && (
+              <div className="admin-tab-content">
+                <div className="tab-header">
+                  <h2>Category Management</h2>
+                  <p>Here you can add or remove categories dynamically.</p>
+                </div>
+                <div className="empty-state" style={{ textAlign: 'left', background: 'var(--surface-hover)', padding: '24px', borderRadius: 'var(--radius)' }}>
+                  <h3>Categories are currently hardcoded</h3>
+                  <p>To enable adding/removing categories, we need to migrate the Category structure to Firebase as well.</p>
+                  <button className="btn-secondary" style={{ marginTop: '16px' }}>Migrate Categories to Firebase</button>
                 </div>
               </div>
-
-              {order.status !== 'delivered' && (
-                <div className="order-actions">
-                  <button onClick={() => markDelivered(order.id)} className="deliver-btn">
-                    Mark as Delivered
-                  </button>
-                </div>
-              )}
-            </div>
-          ))
-        )}
+            )}
+          </main>
+        </div>
       </div>
+      
+      <ProductModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        productToEdit={productToEdit} 
+      />
     </div>
   );
 };

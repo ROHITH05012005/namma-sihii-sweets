@@ -4,8 +4,8 @@ import {
   signInWithPopup, 
   signOut, 
   onAuthStateChanged,
-  RecaptchaVerifier,
-  signInWithPhoneNumber
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword
 } from 'firebase/auth';
 
 const AuthContext = createContext();
@@ -22,9 +22,9 @@ export const AuthProvider = ({ children }) => {
       if (currentUser) {
         setUser({
           id: currentUser.uid,
-          name: currentUser.displayName || currentUser.phoneNumber || 'User',
+          name: currentUser.displayName || currentUser.email?.split('@')[0] || 'User',
           email: currentUser.email,
-          phone: currentUser.phoneNumber
+          isAdmin: currentUser.email === 'admin@nammasihii.com'
         });
         const idToken = await currentUser.getIdToken();
         setToken(idToken);
@@ -46,30 +46,21 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const setupRecaptcha = (containerId) => {
-    if (!window.recaptchaVerifier) {
-      window.recaptchaVerifier = new RecaptchaVerifier(auth, containerId, {
-        size: 'invisible'
-      });
-    }
-  };
-
-  const sendOTP = async (phoneNumber) => {
+  const loginWithEmail = async (email, password) => {
     try {
-      const confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier);
-      window.confirmationResult = confirmationResult;
+      await signInWithEmailAndPassword(auth, email, password);
       return { success: true };
     } catch (error) {
       return { success: false, message: error.message };
     }
   };
 
-  const verifyOTP = async (otp) => {
+  const registerWithEmail = async (email, password) => {
     try {
-      await window.confirmationResult.confirm(otp);
+      await createUserWithEmailAndPassword(auth, email, password);
       return { success: true };
     } catch (error) {
-      return { success: false, message: 'Invalid OTP' };
+      return { success: false, message: error.message };
     }
   };
 
@@ -78,7 +69,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, loading, loginWithGoogle, setupRecaptcha, sendOTP, verifyOTP, logout }}>
+    <AuthContext.Provider value={{ user, token, loading, loginWithGoogle, loginWithEmail, registerWithEmail, logout }}>
       {!loading && children}
     </AuthContext.Provider>
   );

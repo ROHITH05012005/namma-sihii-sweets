@@ -66,9 +66,9 @@ const Checkout = () => {
       if (paymentMethod === 'cod' || paymentMethod === 'upi') {
         // Save order directly to Firestore
         await addDoc(collection(db, 'orders'), {
-          userId: user.id,
-          userName: user.name,
-          userPhone: user.phone || 'N/A',
+          userId: user?.id || 'guest',
+          userName: user?.name || 'Guest',
+          userPhone: user?.phone || user?.email || 'N/A',
           amount: finalAmount,
           method: paymentMethod,
           upiRef: upiRef,
@@ -84,7 +84,7 @@ const Checkout = () => {
         return;
       }
     } catch (err) {
-      console.error(error);
+      console.error(err);
       alert('Failed to initialize payment.');
     } finally {
       setLoading(false);

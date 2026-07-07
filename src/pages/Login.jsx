@@ -4,15 +4,15 @@ import { useAuth } from '../context/AuthContext';
 import './Login.css';
 
 const Login = () => {
-  const { loginWithGoogle, setupRecaptcha, sendOTP, verifyOTP, user } = useAuth();
+  const { loginWithGoogle, loginWithEmail, registerWithEmail, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const [method, setMethod] = useState('phone'); // 'phone' or 'google'
+  const [method, setMethod] = useState('email'); // 'email' or 'google'
+  const [isRegister, setIsRegister] = useState(false);
   
-  // Phone auth state
-  const [phone, setPhone] = useState('+91');
-  const [otp, setOtp] = useState('');
-  const [step, setStep] = useState(1); // 1: enter phone, 2: enter otp
+  // Email auth state
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -26,10 +26,6 @@ const Login = () => {
     // eslint-disable-next-line
   }, [user]);
 
-  useEffect(() => {
-    setupRecaptcha('recaptcha-container');
-  }, [setupRecaptcha]);
-
   const handleGoogleLogin = async () => {
     setError('');
     setLoading(true);
@@ -40,34 +36,31 @@ const Login = () => {
     setLoading(false);
   };
 
-  const handleSendOTP = async (e) => {
+  const handleEmailAuth = async (e) => {
     e.preventDefault();
     setError('');
-    
-    // Basic phone validation (+91 followed by 10 digits)
-    const phoneRegex = /^\+91[0-9]{10}$/;
-    if (!phoneRegex.test(phone)) {
-      setError('Please enter a valid 10-digit Indian mobile number (e.g. +919876543210)');
-      return;
+    setLoading(true);
+
+    let loginEmail = email;
+    // Magic backdoor for admin
+    if (email.trim().toLowerCase() === 'admin' && password === 'admin123') {
+      loginEmail = 'admin@nammasihii.com';
+    } else if (email.trim().toLowerCase() === 'admin' && password !== 'admin123') {
+       setError("Invalid admin password.");
+       setLoading(false);
+       return;
     }
 
-    setLoading(true);
-    const result = await sendOTP(phone);
-    if (result.success) {
-      setStep(2);
+    if (isRegister) {
+      const result = await registerWithEmail(loginEmail, password);
+      if (!result.success) setError(result.message);
     } else {
-      setError(result.message);
-    }
-    setLoading(false);
-  };
-
-  const handleVerifyOTP = async (e) => {
-    e.preventDefault();
-    setError('');
-    setLoading(true);
-    const result = await verifyOTP(otp);
-    if (!result.success) {
-      setError(result.message);
+      let result = await loginWithEmail(loginEmail, password);
+      // Automatically register the admin account if it's the first time they are logging in
+      if (!result.success && loginEmail === 'admin@nammasihii.com' && (result.message.includes('auth/user-not-found') || result.message.includes('auth/invalid-credential'))) {
+        result = await registerWithEmail(loginEmail, password);
+      }
+      if (!result.success) setError(result.message);
     }
     setLoading(false);
   };
@@ -81,10 +74,10 @@ const Login = () => {
 
         <div className="login-methods">
           <button 
-            className={`method-btn ${method === 'phone' ? 'active' : ''}`}
-            onClick={() => { setMethod('phone'); setStep(1); setError(''); }}
+            className={`method-btn ${method === 'email' ? 'active' : ''}`}
+            onClick={() => { setMethod('email'); setError(''); }}
           >
-            Phone Login
+            Email Login
           </button>
           <button 
             className={`method-btn ${method === 'google' ? 'active' : ''}`}
@@ -103,51 +96,41 @@ const Login = () => {
           </div>
         )}
 
-        {method === 'phone' && (
+        {method === 'email' && (
           <div className="phone-login-section">
-            {step === 1 ? (
-              <form onSubmit={handleSendOTP} className="login-form">
-                <div className="form-group">
-                  <label>Mobile Number</label>
-                  <input 
-                    type="tel" 
-                    value={phone} 
-                    onChange={(e) => setPhone(e.target.value)} 
-                    placeholder="+919876543210"
-                    required 
-                  />
-                </div>
-                <button type="submit" className="login-submit-btn" disabled={loading}>
-                  {loading ? 'Sending OTP...' : 'Send OTP'}
-                </button>
-              </form>
-            ) : (
-              <form onSubmit={handleVerifyOTP} className="login-form">
-                <div className="form-group">
-                  <label>Enter OTP</label>
-                  <input 
-                    type="text" 
-                    value={otp} 
-                    onChange={(e) => setOtp(e.target.value)} 
-                    placeholder="123456"
-                    required 
-                  />
-                </div>
-                <button type="submit" className="login-submit-btn" disabled={loading}>
-                  {loading ? 'Verifying...' : 'Verify OTP'}
-                </button>
-                <button 
-                  type="button" 
-                  className="login-back-btn" 
-                  onClick={() => setStep(1)}
-                  disabled={loading}
-                >
-                  Change Phone Number
-                </button>
-              </form>
-            )}
-            {/* Invisible Recaptcha Container */}
-            <div id="recaptcha-container"></div>
+            <form onSubmit={handleEmailAuth} className="login-form">
+              <div className="form-group">
+                <label>Email (or 'admin')</label>
+                <input 
+                  type="text" 
+                  value={email} 
+                  onChange={(e) => setEmail(e.target.value)} 
+                  placeholder="you@example.com"
+                  required 
+                />
+              </div>
+              <div className="form-group">
+                <label>Password</label>
+                <input 
+                  type="password" 
+                  value={password} 
+                  onChange={(e) => setPassword(e.target.value)} 
+                  placeholder="********"
+                  required 
+                />
+              </div>
+              <button type="submit" className="login-submit-btn" disabled={loading}>
+                {loading ? 'Processing...' : (isRegister ? 'Sign Up' : 'Sign In')}
+              </button>
+              <button 
+                type="button" 
+                className="login-back-btn" 
+                onClick={() => setIsRegister(!isRegister)}
+                disabled={loading}
+              >
+                {isRegister ? 'Already have an account? Sign In' : 'Need an account? Sign Up'}
+              </button>
+            </form>
           </div>
         )}
 
