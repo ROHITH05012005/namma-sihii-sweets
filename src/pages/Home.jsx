@@ -55,7 +55,7 @@ const Home = () => {
                 className={`carousel-slide ${index === currentSlide ? 'active' : ''}`}
                 style={{ backgroundImage: `url(${cat.image})` }}
               >
-                <Link to={cat.link} className="carousel-overlay">
+                <Link to={cat.link || `/shop?category=${encodeURIComponent(cat.name)}`} className="carousel-overlay">
                   <h3>{cat.name}</h3>
                   <span className="btn-secondary" style={{ marginTop: '16px', borderColor: 'var(--secondary)', color: 'var(--secondary)' }}>Explore <ArrowRight size={16} style={{ marginLeft: '8px' }}/></span>
                 </Link>

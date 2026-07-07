@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { ChevronDown, ChevronUp, SlidersHorizontal, Check } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 import { products } from '../data/products';
+import { useCategories } from '../context/CategoryContext';
 import './Shop.css';
 
 const categoryStructure = [
@@ -31,6 +32,7 @@ const categoryStructure = [
 ];
 
 const Shop = () => {
+  const { categories: dynamicCategories } = useCategories();
   const location = useLocation();
   const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
@@ -85,7 +87,7 @@ const Shop = () => {
     return true;
   });
 
-  const currentCategoryData = categoryStructure.find(c => c.name.toLowerCase() === filter.toLowerCase());
+  const currentCategoryData = dynamicCategories.find(c => c.name.toLowerCase() === filter.toLowerCase());
 
   return (
     <div className="shop-page">
@@ -117,7 +119,7 @@ const Shop = () => {
                 
                 {isSubExpanded && (
                   <div className="filter-checkboxes">
-                    {currentCategoryData.subcategories.map(sub => {
+                    {currentCategoryData.dropdown?.map(sub => {
                       const isChecked = activeSubs.includes(sub);
                       return (
                         <label key={sub} className="checkbox-label">
@@ -148,9 +150,9 @@ const Shop = () => {
             >
               All Products
             </button>
-            {categoryStructure.map(cat => (
+            {dynamicCategories.map(cat => (
               <button 
-                key={cat.name}
+                key={cat.id || cat.name}
                 className={`cat-pill ${filter.toLowerCase() === cat.name.toLowerCase() ? 'active' : ''}`}
                 onClick={() => handleCategoryClick(cat.name)}
               >

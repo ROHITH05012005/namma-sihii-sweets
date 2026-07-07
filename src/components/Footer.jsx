@@ -30,11 +30,6 @@ const Footer = () => {
               Bengaluru, Karnataka 560016
             </a>
           </p>
-          <div style={{ marginTop: '20px' }}>
-            <Link to="/contact" className="btn-primary" style={{ display: 'inline-block', padding: '10px 24px', textDecoration: 'none' }}>
-              Contact Us Page
-            </Link>
-          </div>
         </div>
         
         <div className="footer-links-group footer-categories-grid">
@@ -56,20 +51,6 @@ const Footer = () => {
             <button type="submit" className="btn-primary">Subscribe</button>
           </form>
         </div>
-      </div>
-      
-      {/* Full Width Footer Map */}
-      <div className="footer-map-container" style={{ width: '100%', height: '300px', marginBottom: '0', overflow: 'hidden', borderTop: '2px solid var(--secondary)', borderBottom: '2px solid var(--secondary)' }}>
-        <iframe 
-          src="https://maps.google.com/maps?q=NAMMA%20SIHII%20MANE,%20Kalkere,%20Bengaluru&t=&z=16&ie=UTF8&iwloc=&output=embed" 
-          width="100%" 
-          height="100%" 
-          style={{ border: 0 }} 
-          allowFullScreen="" 
-          loading="lazy" 
-          referrerPolicy="no-referrer-when-downgrade"
-          title="Namma Sihii Sweets Location">
-        </iframe>
       </div>
       
       <div className="footer-bottom">
