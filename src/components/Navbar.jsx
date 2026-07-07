@@ -30,7 +30,7 @@ const Navbar = () => {
         <p><strong>Instant delivery within 30-45mins.</strong> Shop only at <span className="highlight-text">nammasihiisweets.com</span></p>
       </div>
       
-      <header className="navbar-container" style={{ backgroundColor: '#fff', borderBottom: '1px solid var(--border)', padding: '10px 0' }}>
+      <header className="navbar-container" style={{ backgroundColor: 'var(--primary-dark)', borderBottom: '2px solid var(--secondary)', padding: '10px 0' }}>
         <div className="container navbar-main-row">
           {/* Left: Logo */}
           <Link to="/" className="navbar-logo" onClick={() => setIsOpen(false)}>
@@ -89,7 +89,7 @@ const Navbar = () => {
           </nav>
 
           {/* Mobile Menu Button */}
-          <button className="mobile-menu-btn" onClick={() => setIsOpen(!isOpen)}>
+          <button className="mobile-menu-btn" onClick={() => setIsOpen(!isOpen)} style={{ color: 'var(--background)' }}>
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
