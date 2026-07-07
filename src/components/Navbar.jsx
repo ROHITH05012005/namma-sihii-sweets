@@ -44,6 +44,17 @@ const Navbar = () => {
           </button>
         </div>
       </div>
+      
+      {/* Secondary Category Navigation */}
+      <div className="category-nav">
+        <div className="container category-nav-container">
+          {['Sweets', 'Namkeens', 'Snacks', 'Bakery & Boulangerie', 'Chocolates', 'Gifting', 'Candles', 'Fragrances', 'Ice creams', 'Tea'].map(cat => (
+            <Link key={cat} to={`/shop?category=${encodeURIComponent(cat)}`} className="category-nav-link">
+              {cat}
+            </Link>
+          ))}
+        </div>
+      </div>
     </header>
   );
 };
