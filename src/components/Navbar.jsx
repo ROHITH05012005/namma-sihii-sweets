@@ -69,7 +69,13 @@ const Navbar = () => {
                 'View All'
               ]
             },
-            { name: 'Snacks' },
+            { 
+              name: 'Snacks',
+              dropdown: [
+                'Benne Specials',
+                'View All'
+              ]
+            },
             { 
               name: 'Bakery & Boulangerie',
               dropdown: [
