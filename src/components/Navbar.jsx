@@ -27,7 +27,7 @@ const Navbar = () => {
       {/* Top Announcement Banner */}
       <div className="announcement-banner">
         <p>We're happy to serve you from <strong>08:00 AM to 09:45 PM</strong> every day! Orders placed after this time will be handled on the next working day.</p>
-        <p><strong>Instant delivery within 30-45mins.</strong> Shop only at <span className="highlight-text">namsihiisweets.netlify.app</span></p>
+        <p><strong>Instant delivery within 30-45mins.</strong> Shop only at <a href="https://namsihiisweets.netlify.app" className="highlight-text">namsihiisweets.netlify.app</a></p>
       </div>
       
       <header className="navbar-container" style={{ backgroundColor: 'var(--primary-dark)', borderBottom: '2px solid var(--secondary)', padding: '10px 0' }}>
