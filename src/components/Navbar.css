@@ -1,3 +1,24 @@
+/* Announcement Banner */
+.announcement-banner {
+  background-color: #f1d4ff; /* Light purple like Kanti Sweets */
+  color: #000;
+  text-align: center;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  font-family: 'Inter', sans-serif;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.announcement-banner p {
+  margin: 2px 0;
+}
+
+.announcement-banner .highlight-text {
+  color: #0000ee; /* Blue link color */
+  font-weight: 500;
+}
+
 .navbar-container {
   position: sticky;
   top: 0;
