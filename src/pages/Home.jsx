@@ -90,6 +90,130 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Dynamic Category Landing Sections (Alternating Layouts) */}
+      <section className="category-landing-sections" style={{ backgroundColor: 'var(--background)' }}>
+        {[
+          {
+            name: 'Gifting',
+            tagline: 'Make Every Celebration Sweeter',
+            description: 'The perfect gift is one that comes from the heart. Our curated gift hampers combine the finest sweets, chocolates, and artisanal treats into beautiful packages for weddings, festivals, corporate events, and every occasion worth celebrating.',
+            highlight: 'Thoughtful. Timeless. Truly delightful.',
+            image: '/images/gift_hamper.png',
+            link: '/category/Gifting'
+          },
+          {
+            name: 'Sweets',
+            tagline: 'Crafted with Love, Served with Tradition',
+            description: "Every sweet at Namma Sihii Sweets carries the warmth of a grandmother's kitchen and the precision of a master artisan. Made from pure desi ghee, fresh milk, and premium ingredients — our sweets are a celebration in every bite.",
+            highlight: 'No artificial preservatives. 100% fresh. Made daily.',
+            image: '/images/ghewar_sweet.png',
+            link: '/category/Sweets',
+            subCards: [
+              { title: 'Jaggery Sweets', image: '/images/traditional_sweets_1783391365914.png' },
+              { title: 'Zero-Sugar Sweets', image: '/images/sugar_free_1783391385498.png' },
+              { title: 'Spirulina Chikki', image: '/images/pure_ingredients_1783392308887.png' },
+              { title: 'Spirulina Nutberry', image: '/images/bengali_sweets_1783391376097.png' }
+            ]
+          },
+          {
+            name: 'Namkeens',
+            tagline: 'Crunchy, Spicy, Irresistible',
+            description: 'From light roasted mixes to bold, spiced snacks — our Namkeen range is crafted for those moments when you crave something perfectly salty and satisfying. Made in small batches to guarantee freshness.',
+            highlight: 'Bold flavours. Freshly roasted. Zero compromise.',
+            image: '/images/navratan_mixture_1783133784049.png',
+            link: '/category/Namkeens'
+          },
+          {
+            name: 'Snacks',
+            tagline: 'Perfect Bites for Every Moment',
+            description: "Whether it's a quick evening hunger or a party snack platter, our Snacks range has you covered. Light, flavorful, and made with care — these are bites you'll keep coming back for.",
+            highlight: 'Crispy perfection in every pack.',
+            image: '/images/namkeen_1783391394817.png',
+            link: '/category/Snacks'
+          },
+          {
+            name: 'Bakery & Boulangerie',
+            tagline: 'From Our Oven to Your Table',
+            description: 'Our bakery blends classic Indian baking with modern French techniques. From flaky croissants to rich cakes, from artisan breads to delicate cookies — every item is baked fresh, every single day.',
+            highlight: 'Baked fresh. Delivered with love.',
+            image: '/images/croissant_bakery.png',
+            link: '/category/Bakery%20%26%20Boulangerie'
+          },
+          {
+            name: 'Chocolates',
+            tagline: 'Indulge in Pure Chocolate Bliss',
+            description: 'Our chocolate range celebrates the art of fine chocolate-making. From smooth milk chocolates to intense dark varieties, from delicate truffles to beautiful gift boxes — each piece is a moment of pure indulgence.',
+            highlight: 'Premium cocoa. Handcrafted. Extraordinary.',
+            image: '/images/assorted_chocolates.png',
+            link: '/category/Chocolates'
+          },
+          {
+            name: 'Candles',
+            tagline: 'Light Up Moments, Breathe in Luxury',
+            description: 'Transform your space with our exquisite candle collection. Hand-poured with premium wax and infused with carefully curated fragrances — from calming sandalwood to energising citrus — each candle creates an atmosphere of pure luxury.',
+            highlight: 'Hand-poured. Long-lasting. Beautifully crafted.',
+            image: '/images/sandalwood_candle.png',
+            link: '/category/Candles'
+          },
+          {
+            name: 'Fragrances',
+            tagline: 'Scents That Tell a Story',
+            description: 'Our fragrance collection is a tribute to the art of perfumery. Each scent is a harmonious blend of rare botanicals and precious essences, crafted through traditional distillation. Non-alcoholic, long-lasting, and truly extraordinary.',
+            highlight: 'Rare botanicals. Non-alcoholic. Timeless.',
+            image: '/images/room_fragrance.png',
+            link: '/category/Fragrances'
+          },
+          {
+            name: 'Ice creams',
+            tagline: 'Cool, Creamy, and Utterly Delightful',
+            description: 'Made with real fruits, natural flavours, and the finest dairy — our ice creams are a celebration of summer in every scoop. From classic Indian kulfi flavours to modern gelato-style creations — cool down in the most delicious way possible.',
+            highlight: 'Real ingredients. Pure joy. Every scoop.',
+            image: '/images/mango_ice_cream.png',
+            link: '/category/Ice%20creams'
+          },
+          {
+            name: 'Tea',
+            tagline: 'A Cup of Calm in Every Sip',
+            description: 'Our premium tea collection is sourced from the finest gardens across India. From the delicate first-flush Darjeeling to robust Assam blends and soothing herbal infusions — find your perfect cup and make every moment a ritual.',
+            highlight: 'Finest leaves. Rich aroma. Perfect every time.',
+            image: '/images/realistic_shop.png',
+            link: '/category/Tea'
+          }
+        ].map((sec, idx) => (
+          <div key={sec.name} className={`rich-category-section ${idx % 2 === 1 ? 'alt' : ''}`}>
+            <div className="container">
+              <div className={`rich-category-grid ${idx % 2 === 1 ? 'reversed' : ''}`}>
+                <div className="rich-category-img-wrapper">
+                  <img src={sec.image} alt={sec.name} className="rich-category-img" />
+                </div>
+                <div className="rich-category-content">
+                  <h3>{sec.name}</h3>
+                  <div className="rich-category-tagline">{sec.tagline}</div>
+                  <p className="rich-category-desc">{sec.description}</p>
+                  <div className="rich-category-highlight">{sec.highlight}</div>
+                  <div>
+                    <Link to={sec.link} className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
+                      Shop Collection <ArrowRight size={16} />
+                    </Link>
+                  </div>
+                  
+                  {sec.subCards && (
+                    <div className="rich-category-subgrid">
+                      {sec.subCards.map((sub, sIdx) => (
+                        <div key={sIdx} className="rich-category-subcard">
+                          <img src={sub.image} alt={sub.title} className="rich-category-subcard-img" />
+                          <div className="rich-category-subcard-title">{sub.title}</div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </section>
+
       {/* Latest Arrivals Section */}
       <section className="section latest-arrivals-section" style={{ backgroundColor: 'var(--surface-hover)' }}>
         <div className="container">
@@ -124,6 +248,7 @@ const Home = () => {
           </div>
         </div>
       </section>
+
       {/* Reviews & Experiences Section */}
       <section className="section experiences-section" style={{ backgroundColor: 'var(--surface-hover)', padding: '80px 0' }}>
         <div className="container" style={{ textAlign: 'center', maxWidth: '800px' }}>
