@@ -2,17 +2,17 @@
 
 :root {
   /* Maroon & Gold Theme Palette */
-  --primary: #4a0e17; /* Deep Maroon */
-  --primary-light: #7a2835;
-  --primary-dark: #2a050a;
+  --primary: #4a0200; 
+  --primary-light: #6a0505;
+  --primary-dark: #290100; /* EXACT logo background to fix the halo */
   
-  --secondary: #c5a059; /* Gold */
+  --secondary: #c8a078; /* Logo gold */
   --secondary-light: #e8c98b;
   --secondary-dark: #967434;
   
-  --background: #e9c7a2; /* Exact logo center color */
-  --surface: #e9c7a2; 
-  --surface-hover: #e9c7a2;
+  --background: #faecd9; /* Pleasant light cream inspired by center */
+  --surface: #faecd9; 
+  --surface-hover: #faecd9;
   
   --text-primary: #2a050a;
   --text-secondary: #5a383d;
