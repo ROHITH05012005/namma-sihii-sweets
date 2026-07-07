@@ -12,7 +12,14 @@ const Checkout = () => {
   const { user, token } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [address, setAddress] = useState({ street: '', city: '', state: '', pincode: '' });
+  const [address, setAddress] = useState({
+    name: user?.name || '',
+    phone: user?.phone || '',
+    street: '',
+    city: '',
+    state: '',
+    pincode: ''
+  });
   const [paymentMethod, setPaymentMethod] = useState('cod');
   const [upiRef, setUpiRef] = useState('');
 
@@ -67,8 +74,8 @@ const Checkout = () => {
         // Save order directly to Firestore
         await addDoc(collection(db, 'orders'), {
           userId: user?.id || 'guest',
-          userName: user?.name || 'Guest',
-          userPhone: user?.phone || user?.email || 'N/A',
+          userName: address.name || user?.name || 'Guest',
+          userPhone: address.phone || user?.phone || 'N/A',
           amount: finalAmount,
           method: paymentMethod,
           upiRef: upiRef,
@@ -110,6 +117,27 @@ const Checkout = () => {
             >
               <MapPin size={16} /> Detect My Location
             </button>
+          </div>
+
+          <div className="form-group-row">
+            <div className="form-group">
+              <label>Full Name</label>
+              <input 
+                type="text" 
+                value={address.name} 
+                onChange={e => setAddress({...address, name: e.target.value})} 
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Phone Number (For Delivery & Tracking)</label>
+              <input 
+                type="tel" 
+                value={address.phone} 
+                onChange={e => setAddress({...address, phone: e.target.value})} 
+                required
+              />
+            </div>
           </div>
           
           <div className="form-group">
