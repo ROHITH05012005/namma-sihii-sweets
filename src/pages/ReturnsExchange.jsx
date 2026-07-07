@@ -20,7 +20,7 @@ const ReturnsExchange = () => (
     <h2>How to Raise a Complaint</h2>
     <ul>
       <li>Call us: <strong>9900161303 / 9036611627</strong></li>
-      <li>Email: <a href="mailto:support@namsihiisweets.netlify.app">support@namsihiisweets.netlify.app</a></li>
+      <li>Email: <a href="mailto:support@nammasihiisweets.netlify.app">support@nammasihiisweets.netlify.app</a></li>
       <li>Use the <a href="/feedback">Feedback</a> form on our website</li>
     </ul>
 

@@ -74,7 +74,7 @@ const Footer = () => {
           <div className="footer-col">
             <h4 className="footer-col-title">Customer Care</h4>
             <ul className="footer-links no-hover">
-              <li><a href="mailto:support@namsihiisweets.netlify.app">support@namsihiisweets.netlify.app</a></li>
+              <li><a href="mailto:support@nammasihiisweets.netlify.app">support@nammasihiisweets.netlify.app</a></li>
               <li><a href="tel:9900161303">9900161303 / 9036611627</a></li>
               <li style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem' }}>(Timings: 08:00 AM – 09:45 PM)</li>
             </ul>

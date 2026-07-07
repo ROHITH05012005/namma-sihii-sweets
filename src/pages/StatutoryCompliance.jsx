@@ -26,7 +26,7 @@ const StatutoryCompliance = () => (
     <p>We are committed to fair employment practices and adhere to all applicable labour laws including the Shops and Establishments Act, Minimum Wages Act, and the EPF & ESI regulations.</p>
 
     <h2>Contact for Compliance Queries</h2>
-    <p>For any compliance-related queries, please contact us at <a href="mailto:support@namsihiisweets.netlify.app">support@namsihiisweets.netlify.app</a> or call <strong>9900161303</strong>.</p>
+    <p>For any compliance-related queries, please contact us at <a href="mailto:support@nammasihiisweets.netlify.app">support@nammasihiisweets.netlify.app</a> or call <strong>9900161303</strong>.</p>
   </StaticPage>
 );
 
