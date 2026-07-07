@@ -196,20 +196,22 @@ const Admin = () => {
               <div className="admin-tab-content">
                 <div className="tab-header">
                   <h2>Product Catalog</h2>
-                  <button className="btn-primary" onClick={handleAddProduct}>Add New Product</button>
+                  <div style={{display: 'flex', gap: '10px'}}>
+                    <button 
+                      className="btn-secondary" 
+                      onClick={initializeDatabase}
+                      disabled={initLoading}
+                    >
+                      {initLoading ? 'Migrating...' : 'Migrate Local Products'}
+                    </button>
+                    <button className="btn-primary" onClick={handleAddProduct}>Add New Product</button>
+                  </div>
                 </div>
                 
                 {products.length === 0 ? (
                   <div className="empty-state">
                     <h3>Database is empty</h3>
-                    <p>You haven't added any products to Firebase yet.</p>
-                    <button 
-                      className="btn-primary" 
-                      onClick={initializeDatabase}
-                      disabled={initLoading}
-                    >
-                      {initLoading ? 'Migrating...' : 'Migrate Local Products to Firebase'}
-                    </button>
+                    <p>Click the Migrate button above to upload your products.</p>
                   </div>
                 ) : (
                   <div className="products-table-wrapper">

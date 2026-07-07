@@ -85,7 +85,7 @@ const Checkout = () => {
       }
     } catch (err) {
       console.error(err);
-      alert('Failed to initialize payment.');
+      alert('Failed to place order: ' + err.message);
     } finally {
       setLoading(false);
     }
