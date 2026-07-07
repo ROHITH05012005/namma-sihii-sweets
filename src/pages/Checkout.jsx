@@ -38,9 +38,9 @@ const Checkout = () => {
     navigator.geolocation.getCurrentPosition(async (position) => {
       try {
         const { latitude, longitude } = position.coords;
-        // Using Nominatim (OpenStreetMap) for free reverse geocoding
-        const response = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
-        const data = response.data.address;
+        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
+        const result = await response.json();
+        const data = result.address;
         
         setAddress({
           street: data.road || data.suburb || data.neighbourhood || '',
