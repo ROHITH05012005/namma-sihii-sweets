@@ -25,17 +25,25 @@ const Home = () => {
 
   return (
     <div className="home-page">
-      {/* Hero Section */}
-      <section className="hero-section">
+      {/* Hero Slideshow Section */}
+      <section className="hero-section" style={{ backgroundColor: 'var(--background)' }}>
+        {categories.map((cat, index) => (
+          <div 
+            key={`hero-${index}`}
+            className={`hero-slide ${index === currentSlide ? 'active' : ''}`}
+            style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${cat.image})` }}
+          />
+        ))}
+        
         <div className="container hero-content">
-          <div className="hero-text">
-            <h1>Sweets that Celebrate Tradition</h1>
-            <p>Experience the rich, authentic taste of Indian heritage with our handcrafted, premium sweets made fresh daily.</p>
+          <div className="hero-text" style={{ backgroundColor: 'rgba(42, 5, 10, 0.85)', padding: '40px', borderRadius: '12px', border: '2px solid var(--secondary)' }}>
+            <h1 style={{ color: 'var(--background)' }}>Sweets that Celebrate Tradition</h1>
+            <p style={{ color: '#fff' }}>Experience the rich, authentic taste of Indian heritage with our handcrafted, premium sweets made fresh daily.</p>
             <div className="hero-actions">
-              <Link to="/shop" className="btn-primary">
+              <Link to="/shop" className="btn-primary" style={{ backgroundColor: 'var(--secondary)', color: 'var(--primary-dark)', borderColor: 'var(--secondary)' }}>
                 Shop Now <ArrowRight size={20} />
               </Link>
-              <Link to="/about" className="btn-secondary">Our Story</Link>
+              <Link to="/about" className="btn-secondary" style={{ color: 'var(--background)', borderColor: 'var(--background)' }}>Our Story</Link>
             </div>
           </div>
         </div>
