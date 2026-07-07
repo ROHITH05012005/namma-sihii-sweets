@@ -22,6 +22,8 @@ const Home = () => {
     }, 4000);
     return () => clearInterval(timer);
   }, []);
+
+  return (
     <div className="home-page">
       {/* Hero Section */}
       <section className="hero-section">
