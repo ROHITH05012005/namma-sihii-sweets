@@ -80,6 +80,107 @@
   font-weight: 500;
 }
 
+.image-upload-area {
+  border: 2px dashed var(--secondary);
+  border-radius: var(--radius);
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  background: var(--surface-hover);
+  transition: all 0.3s ease;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-upload-area:hover {
+  background: var(--surface);
+  border-color: var(--primary-gold);
+}
+
+.file-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.upload-instructions p {
+  color: var(--text-secondary);
+  font-weight: 600;
+  margin: 0;
+}
+
+.image-preview-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.image-preview {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: var(--radius);
+  object-fit: contain;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.badges-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.badge-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  background: var(--bg-primary);
+  transition: all 0.3s ease;
+}
+
+.badge-toggle.active {
+  border-color: var(--primary-gold);
+  background: rgba(184, 134, 11, 0.05);
+}
+
+.toggle-checkbox {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.badge-toggle.active .toggle-checkbox {
+  background: var(--primary-gold);
+  border-color: var(--primary-gold);
+}
+
+.badge-toggle.active .toggle-checkbox::after {
+  content: '✓';
+  color: white;
+  font-weight: bold;
+}
+
+.badge-toggle span {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
 .modal-actions {
   display: flex;
   justify-content: flex-end;

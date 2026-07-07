@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 import { ShoppingCart, Menu, X } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
+import { useCategories } from '../context/CategoryContext';
 import './Navbar.css';
 import './Navbar-login.css';
 
 const Navbar = () => {
   const { cartCount } = useCart();
   const { user, logout } = useAuth();
+  const { categories } = useCategories();
   const [isOpen, setIsOpen] = React.useState(false);
 
   return (
@@ -48,59 +50,12 @@ const Navbar = () => {
       {/* Secondary Category Navigation */}
       <div className="category-nav">
         <div className="container category-nav-container">
-          {[
-            { 
-              name: 'Sweets', 
-              dropdown: [
-                'Ghewars', 
-                'Ghee & Khova Sweets', 
-                'Packed Sweets', 
-                'Assorted Sweets', 
-                'Special Kaju Sweets', 
-                'All Sweet Delights', 
-                'Bengali Sweets', 
-                'View All'
-              ] 
-            },
-            { 
-              name: 'Namkeens',
-              dropdown: [
-                'Roasted Namkeens',
-                'View All'
-              ]
-            },
-            { 
-              name: 'Snacks',
-              dropdown: [
-                'Benne Specials',
-                'View All'
-              ]
-            },
-            { 
-              name: 'Bakery & Boulangerie',
-              dropdown: [
-                'Cakes',
-                'Doughnuts',
-                'Beverages',
-                'Sticks',
-                'Cookies and Biscuits',
-                'Breads',
-                'Crossiants & Rolls',
-                'View All'
-              ]
-            },
-            { name: 'Chocolates' },
-            { name: 'Gifting' },
-            { name: 'Candles' },
-            { name: 'Fragrances' },
-            { name: 'Ice creams' },
-            { name: 'Tea' }
-          ].map(cat => (
+          {categories.map(cat => (
             <div key={cat.name} className="nav-item-dropdown">
               <Link to={`/shop?category=${encodeURIComponent(cat.name)}`} className="category-nav-link">
-                {cat.name} {cat.dropdown && <span className="dropdown-arrow">▼</span>}
+                {cat.name} {cat.dropdown && cat.dropdown.length > 0 && <span className="dropdown-arrow">▼</span>}
               </Link>
-              {cat.dropdown && (
+              {cat.dropdown && cat.dropdown.length > 0 && (
                 <div className="dropdown-menu">
                   {cat.dropdown.map(subItem => (
                     <Link 

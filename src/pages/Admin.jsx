@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useCategories } from '../context/CategoryContext';
 import { db } from '../firebase';
 import { collection, query, orderBy, onSnapshot, doc, updateDoc, setDoc, deleteDoc } from 'firebase/firestore';
 import { products as localProducts } from '../data/products';
@@ -11,6 +12,7 @@ import './Admin.css';
 const Admin = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
+  const { categories } = useCategories();
   const [activeTab, setActiveTab] = useState('orders');
   
   // Data States
@@ -251,13 +253,59 @@ const Admin = () => {
               <div className="admin-tab-content">
                 <div className="tab-header">
                   <h2>Category Management</h2>
-                  <p>Here you can add or remove categories dynamically.</p>
+                  <div style={{display: 'flex', gap: '10px'}}>
+                    <button className="btn-secondary" onClick={async () => {
+                      try {
+                        setInitLoading(true);
+                        const { defaultCategories } = await import('../context/CategoryContext');
+                        for (let cat of defaultCategories) {
+                          const catId = cat.name.toLowerCase().replace(/\s+/g, '-');
+                          await setDoc(doc(db, 'categories', catId), cat);
+                        }
+                        alert("Categories initialized successfully in Firebase!");
+                      } catch(e) {
+                        alert("Error initializing: " + e.message);
+                      } finally { setInitLoading(false); }
+                    }} disabled={initLoading}>
+                      {initLoading ? 'Migrating...' : 'Migrate Categories to Firebase'}
+                    </button>
+                    <button className="btn-primary" onClick={() => alert('Add category modal coming soon!')}>Add New Category</button>
+                  </div>
                 </div>
-                <div className="empty-state" style={{ textAlign: 'left', background: 'var(--surface-hover)', padding: '24px', borderRadius: 'var(--radius)' }}>
-                  <h3>Categories are currently hardcoded</h3>
-                  <p>To enable adding/removing categories, we need to migrate the Category structure to Firebase as well.</p>
-                  <button className="btn-secondary" style={{ marginTop: '16px' }}>Migrate Categories to Firebase</button>
-                </div>
+                
+                <div className="products-table-wrapper">
+                    <table className="admin-table">
+                      <thead>
+                        <tr>
+                          <th>Order</th>
+                          <th>Name</th>
+                          <th>Image</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {categories.map(cat => (
+                          <tr key={cat.id || cat.name}>
+                            <td>{cat.order}</td>
+                            <td><strong>{cat.name}</strong></td>
+                            <td>{cat.image ? <img src={cat.image} style={{width:'50px', height:'50px', objectFit:'cover', borderRadius:'4px'}} /> : 'No image'}</td>
+                            <td>
+                              <div className="action-buttons">
+                                <button className="icon-btn edit" onClick={() => alert('Edit coming soon')}><Edit size={16}/></button>
+                                <button className="icon-btn delete" onClick={async () => {
+                                  if(window.confirm(`Delete ${cat.name}?`)) {
+                                     try {
+                                       await deleteDoc(doc(db, 'categories', cat.id));
+                                     } catch(e) { alert("Delete failed: " + e.message); }
+                                  }
+                                }}><Trash2 size={16}/></button>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
               </div>
             )}
           </main>

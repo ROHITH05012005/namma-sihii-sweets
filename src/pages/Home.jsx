@@ -3,22 +3,11 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 import { products } from '../data/products';
+import { useCategories } from '../context/CategoryContext';
 import './Home.css';
 
-const categories = [
-  { title: "Sweets", image: "/images/kaju_katli_1783132955254.png", link: "/shop?category=Sweets" },
-  { title: "Namkeens", image: "/images/navratan_mixture_1783133784049.png", link: "/shop?category=Namkeens" },
-  { title: "Snacks", image: "/images/namkeen_1783391394817.png", link: "/shop?category=Snacks" },
-  { title: "Bakery & Boulangerie", image: "/images/croissant_bakery.png", link: "/shop?category=Bakery%20%26%20Boulangerie" },
-  { title: "Chocolates", image: "/images/assorted_chocolates.png", link: "/shop?category=Chocolates" },
-  { title: "Gifting", image: "/images/gift_hamper.png", link: "/shop?category=Gifting" },
-  { title: "Candles", image: "/images/sandalwood_candle.png", link: "/shop?category=Candles" },
-  { title: "Fragrances", image: "/images/room_fragrance.png", link: "/shop?category=Fragrances" },
-  { title: "Ice creams", image: "/images/mango_ice_cream.png", link: "/shop?category=Ice%20creams" },
-  { title: "Tea", image: "/images/realistic_shop.png", link: "/shop?category=Tea" }
-];
-
 const Home = () => {
+  const { categories } = useCategories();
   const bestsellers = products.filter(p => p.isBestseller).slice(0, 3);
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -67,7 +56,7 @@ const Home = () => {
                 style={{ backgroundImage: `url(${cat.image})` }}
               >
                 <Link to={cat.link} className="carousel-overlay">
-                  <h3>{cat.title}</h3>
+                  <h3>{cat.name}</h3>
                   <span className="btn-secondary" style={{ marginTop: '16px', borderColor: 'var(--secondary)', color: 'var(--secondary)' }}>Explore <ArrowRight size={16} style={{ marginLeft: '8px' }}/></span>
                 </Link>
               </div>

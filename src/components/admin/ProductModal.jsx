@@ -63,11 +63,39 @@ const ProductModal = ({ isOpen, onClose, productToEdit }) => {
     }
   };
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      processFile(file);
+    }
+  };
+
+  const handlePaste = (e) => {
+    const items = e.clipboardData?.items;
+    if (items) {
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].type.indexOf('image') !== -1) {
+          const file = items[i].getAsFile();
+          processFile(file);
+          break;
+        }
+      }
+    }
+  };
+
+  const processFile = (file) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setFormData({ ...formData, image: reader.result });
+    };
+    reader.readAsDataURL(file);
+  };
+
   if (!isOpen) return null;
 
   return (
     <div className="modal-overlay">
-      <div className="modal-content glass-panel">
+      <div className="modal-content glass-panel" onPaste={handlePaste}>
         <div className="modal-header">
           <h2>{productToEdit ? 'Edit Product' : 'Add New Product'}</h2>
           <button className="icon-btn" onClick={onClose}><X size={20}/></button>
@@ -111,9 +139,21 @@ const ProductModal = ({ isOpen, onClose, productToEdit }) => {
             </div>
           </div>
 
-          <div className="form-group">
-            <label>Image URL</label>
-            <input type="text" value={formData.image} onChange={e => setFormData({...formData, image: e.target.value})} placeholder="/images/kaju_katli.png or https://..." required />
+          <div className="form-group image-upload-group">
+            <label>Product Image</label>
+            <div className="image-upload-area">
+              {formData.image ? (
+                <div className="image-preview-container">
+                  <img src={formData.image} alt="Preview" className="image-preview" />
+                  <button type="button" className="btn-secondary remove-image-btn" onClick={() => setFormData({...formData, image: ''})}>Remove</button>
+                </div>
+              ) : (
+                <div className="upload-instructions">
+                  <p>Click to upload or press CTRL+V to paste an image</p>
+                  <input type="file" accept="image/*" onChange={handleImageUpload} className="file-input" />
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="form-group">
@@ -121,15 +161,15 @@ const ProductModal = ({ isOpen, onClose, productToEdit }) => {
             <textarea value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} rows="3" required></textarea>
           </div>
 
-          <div className="form-row checkbox-row">
-            <label className="custom-checkbox">
-              <input type="checkbox" checked={formData.isBestseller} onChange={e => setFormData({...formData, isBestseller: e.target.checked})} />
-              Mark as Bestseller
-            </label>
-            <label className="custom-checkbox">
-              <input type="checkbox" checked={formData.isNew} onChange={e => setFormData({...formData, isNew: e.target.checked})} />
-              Mark as New Arrival
-            </label>
+          <div className="form-row badges-row">
+            <div className={`badge-toggle ${formData.isBestseller ? 'active' : ''}`} onClick={() => setFormData({...formData, isBestseller: !formData.isBestseller})}>
+              <div className="toggle-checkbox"></div>
+              <span>Mark as Bestseller</span>
+            </div>
+            <div className={`badge-toggle ${formData.isNew ? 'active' : ''}`} onClick={() => setFormData({...formData, isNew: !formData.isNew})}>
+              <div className="toggle-checkbox"></div>
+              <span>Mark as New Arrival</span>
+            </div>
           </div>
 
           <div className="modal-actions">
