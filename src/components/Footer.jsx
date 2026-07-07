@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCategories } from '../context/CategoryContext';
-import { Instagram, Facebook, Youtube } from 'lucide-react';
 import './Footer.css';
 
 const Footer = () => {
@@ -82,9 +81,9 @@ const Footer = () => {
             <div className="footer-social">
               <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem', marginBottom: '8px', display: 'block' }}>Follow Us On</span>
               <div className="social-icons">
-                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={20} /></a>
-                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><Facebook size={20} /></a>
-                <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><Youtube size={20} /></a>
+                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">📷 Instagram</a>
+                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">👍 Facebook</a>
+                <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube">▶️ YouTube</a>
               </div>
             </div>
           </div>
