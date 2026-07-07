@@ -7,6 +7,10 @@ import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import './Checkout.css';
 
+// CONFIGURATION: Set your UPI ID here to receive payments directly
+const MERCHANT_UPI_ID = "yourname@upi"; // Replace this with your actual UPI ID (e.g., yourname@okaxis, yournumber@ybl)
+const MERCHANT_NAME = "Namma Sihii Sweets";
+
 const Checkout = () => {
   const { cart, cartTotal, clearCart } = useCart();
   const { user, token } = useAuth();
@@ -186,24 +190,41 @@ const Checkout = () => {
             </div>
           </div>
 
-          {paymentMethod === 'upi' && (
-            <div className="upi-payment-section" style={{ marginTop: '24px', padding: '16px', background: 'var(--surface-hover)', borderRadius: 'var(--radius)', textAlign: 'center' }}>
-              <h3>Scan to Pay</h3>
-              <div style={{ width: '150px', height: '150px', margin: '16px auto', background: '#fff', border: '1px solid #ccc', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.8rem', color: '#666' }}>
-                [Dummy QR Code]
+          {paymentMethod === 'upi' && (() => {
+            const upiUrl = `upi://pay?pa=${MERCHANT_UPI_ID}&pn=${encodeURIComponent(MERCHANT_NAME)}&am=${finalAmount}&cu=INR&tn=${encodeURIComponent(`Order Total ₹${finalAmount}`)}`;
+            const qrCodeImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(upiUrl)}`;
+            
+            return (
+              <div className="upi-payment-section" style={{ marginTop: '24px', padding: '20px', background: 'var(--surface-hover)', borderRadius: 'var(--radius)', textAlign: 'center', border: '1px dashed var(--secondary)' }}>
+                <h3 style={{ marginBottom: '8px', color: 'var(--primary-dark)' }}>Scan QR Code with GPay/PhonePe/Paytm</h3>
+                <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '16px' }}>Scan the QR code to pay the exact amount directly from any UPI App.</p>
+                
+                <div style={{ width: '200px', height: '200px', margin: '16px auto', padding: '10px', background: '#fff', border: '1px solid var(--border)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: 'var(--shadow-sm)' }}>
+                  <img 
+                    src={qrCodeImageUrl} 
+                    alt="UPI Payment QR Code" 
+                    style={{ width: '180px', height: '180px', display: 'block' }}
+                  />
+                </div>
+                
+                <p style={{ marginBottom: '16px', fontSize: '1rem', color: 'var(--text-primary)' }}>
+                  Payable Amount: <strong style={{ color: 'var(--primary)', fontSize: '1.2rem' }}>₹{finalAmount}</strong>
+                </p>
+                
+                <div className="form-group" style={{ textAlign: 'left', marginTop: '20px' }}>
+                  <label style={{ fontWeight: '600', display: 'block', marginBottom: '8px', color: 'var(--text-primary)' }}>UPI Transaction Ref ID *</label>
+                  <input 
+                    type="text" 
+                    value={upiRef} 
+                    onChange={e => setUpiRef(e.target.value)} 
+                    placeholder="Enter 12-digit UPI Transaction Ref ID" 
+                    required
+                    style={{ width: '100%', padding: '10px', borderRadius: 'var(--radius)', border: '1px solid var(--border)' }}
+                  />
+                </div>
               </div>
-              <p style={{ marginBottom: '16px', fontSize: '0.9rem' }}>Please pay <strong>₹{finalAmount}</strong> to complete your order.</p>
-              <div className="form-group" style={{ textAlign: 'left' }}>
-                <label>UPI Transaction ID</label>
-                <input 
-                  type="text" 
-                  value={upiRef} 
-                  onChange={e => setUpiRef(e.target.value)} 
-                  placeholder="Enter 12-digit Ref No" 
-                />
-              </div>
-            </div>
-          )}
+            );
+          })()}
         </div>
 
         <div className="checkout-summary glass-panel">
