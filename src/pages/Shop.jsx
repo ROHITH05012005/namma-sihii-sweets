@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ChevronDown, ChevronRight } from 'lucide-react';
+import { ChevronDown, ChevronUp, SlidersHorizontal, Check } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 import { products } from '../data/products';
 import './Shop.css';
@@ -36,50 +36,52 @@ const Shop = () => {
   const queryParams = new URLSearchParams(location.search);
   
   const initialCategory = queryParams.get('category') || 'all';
-  const initialSubcategory = queryParams.get('subcategory') || null;
+  const initialSubcategory = queryParams.get('subcategory') || '';
 
   const [filter, setFilter] = useState(initialCategory);
   const [subFilter, setSubFilter] = useState(initialSubcategory);
-  const [expandedCats, setExpandedCats] = useState([initialCategory]);
+  const [isSubExpanded, setIsSubExpanded] = useState(true);
   
   useEffect(() => {
-    const category = queryParams.get('category');
-    const subcategory = queryParams.get('subcategory');
+    const category = queryParams.get('category') || 'all';
+    const subcategory = queryParams.get('subcategory') || '';
     
-    if (category) {
-      setFilter(category);
-      if (!expandedCats.includes(category)) {
-        setExpandedCats(prev => [...prev, category]);
-      }
-    } else {
-      setFilter('all');
-    }
-    
-    setSubFilter(subcategory || null);
+    setFilter(category);
+    setSubFilter(subcategory);
   }, [location.search]);
 
   const handleCategoryClick = (catName) => {
     navigate(`/shop${catName === 'all' ? '' : `?category=${encodeURIComponent(catName)}`}`);
   };
 
-  const handleSubcategoryClick = (catName, subName) => {
-    navigate(`/shop?category=${encodeURIComponent(catName)}&subcategory=${encodeURIComponent(subName)}`);
+  const toggleSubcategory = (subName) => {
+    let newSubs = [];
+    if (subFilter) {
+      newSubs = subFilter.split(',');
+      if (newSubs.includes(subName)) {
+        newSubs = newSubs.filter(s => s !== subName);
+      } else {
+        newSubs.push(subName);
+      }
+    } else {
+      newSubs = [subName];
+    }
+    const subStr = newSubs.join(',');
+    navigate(`/shop?category=${encodeURIComponent(filter)}${subStr ? `&subcategory=${encodeURIComponent(subStr)}` : ''}`);
   };
 
-  const toggleAccordion = (catName) => {
-    setExpandedCats(prev => 
-      prev.includes(catName) 
-        ? prev.filter(c => c !== catName)
-        : [...prev, catName]
-    );
-  };
-
+  const activeSubs = subFilter ? subFilter.split(',') : [];
+  
   const filteredProducts = products.filter(p => {
-    if (filter === 'all') return true;
-    if (p.category.toLowerCase() !== filter.toLowerCase()) return false;
-    if (subFilter && p.subcategory && p.subcategory.toLowerCase() !== subFilter.toLowerCase()) return false;
+    if (filter !== 'all' && p.category.toLowerCase() !== filter.toLowerCase()) return false;
+    
+    if (activeSubs.length > 0 && p.subcategory) {
+      if (!activeSubs.some(s => s.toLowerCase() === p.subcategory.toLowerCase())) return false;
+    }
     return true;
   });
+
+  const currentCategoryData = categoryStructure.find(c => c.name.toLowerCase() === filter.toLowerCase());
 
   return (
     <div className="shop-page">
@@ -91,70 +93,68 @@ const Shop = () => {
       </div>
       
       <div className="container shop-container section">
-        <aside className="shop-sidebar">
-          <h3>Categories</h3>
-          <ul className="category-list">
-            <li>
-              <button 
-                className={`category-btn ${filter === 'all' ? 'active' : ''}`}
-                onClick={() => handleCategoryClick('all')}
-              >
-                All Products
-              </button>
-            </li>
-            {categoryStructure.map(cat => {
-              const isActiveCat = filter.toLowerCase() === cat.name.toLowerCase();
-              const isExpanded = expandedCats.includes(cat.name);
-              const hasSubcategories = cat.subcategories.length > 0;
-              
-              return (
-                <li key={cat.name} className="category-item-wrapper">
-                  <div className="category-btn-row">
-                    <button 
-                      className={`category-btn ${isActiveCat && !subFilter ? 'active' : ''}`}
-                      onClick={() => handleCategoryClick(cat.name)}
-                    >
-                      {cat.name}
-                    </button>
-                    {hasSubcategories && (
-                      <button 
-                        className="accordion-toggle"
-                        onClick={() => toggleAccordion(cat.name)}
-                      >
-                        {isExpanded ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
-                      </button>
-                    )}
+        <aside className="shop-sidebar new-sidebar">
+          
+          <div className="filter-card">
+            <div className="filter-header">
+              <h3>Filter By:</h3>
+              <SlidersHorizontal size={18} className="filter-icon" />
+            </div>
+
+            {currentCategoryData && currentCategoryData.subcategories.length > 0 && (
+              <div className="filter-section">
+                <div 
+                  className="filter-section-header" 
+                  onClick={() => setIsSubExpanded(!isSubExpanded)}
+                >
+                  <h4>Sub Category</h4>
+                  {isSubExpanded ? <ChevronUp size={18} className="purple-icon" /> : <ChevronDown size={18} className="purple-icon" />}
+                </div>
+                
+                {isSubExpanded && (
+                  <div className="filter-checkboxes">
+                    {currentCategoryData.subcategories.map(sub => {
+                      const isChecked = activeSubs.includes(sub);
+                      return (
+                        <label key={sub} className="checkbox-label">
+                          <div className={`custom-checkbox ${isChecked ? 'checked' : ''}`}>
+                            {isChecked && <Check size={12} />}
+                          </div>
+                          <input 
+                            type="checkbox" 
+                            checked={isChecked}
+                            onChange={() => toggleSubcategory(sub)}
+                            style={{ display: 'none' }}
+                          />
+                          <span>{sub}</span>
+                        </label>
+                      );
+                    })}
+                    <div className="filter-divider"></div>
                   </div>
-                  
-                  {hasSubcategories && isExpanded && (
-                    <ul className="subcategory-list">
-                      <li>
-                        <button 
-                          className={`subcategory-btn ${isActiveCat && !subFilter ? 'active' : ''}`}
-                          onClick={() => handleCategoryClick(cat.name)}
-                        >
-                          View All {cat.name}
-                        </button>
-                      </li>
-                      {cat.subcategories.map(sub => {
-                        const isActiveSub = subFilter && subFilter.toLowerCase() === sub.toLowerCase();
-                        return (
-                          <li key={sub}>
-                            <button 
-                              className={`subcategory-btn ${isActiveSub ? 'active' : ''}`}
-                              onClick={() => handleSubcategoryClick(cat.name, sub)}
-                            >
-                              {sub}
-                            </button>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
+                )}
+              </div>
+            )}
+          </div>
+
+          <div className="category-pills">
+            <button 
+              className={`cat-pill ${filter === 'all' ? 'active' : ''}`}
+              onClick={() => handleCategoryClick('all')}
+            >
+              All Products
+            </button>
+            {categoryStructure.map(cat => (
+              <button 
+                key={cat.name}
+                className={`cat-pill ${filter.toLowerCase() === cat.name.toLowerCase() ? 'active' : ''}`}
+                onClick={() => handleCategoryClick(cat.name)}
+              >
+                {cat.name}
+              </button>
+            ))}
+          </div>
+
         </aside>
         
         <main className="shop-main">
