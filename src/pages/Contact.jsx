@@ -66,7 +66,7 @@ const Contact = () => {
                 <Mail className="info-icon" />
                 <div>
                   <h4>Email</h4>
-                  <p>support@namsihiisweets.netlify.in</p>
+                  <p>support@namsihiisweets.netlify.app</p>
                 </div>
               </div>
               

@@ -43,6 +43,12 @@
   font-size: 1.8rem;
   font-weight: 700;
   color: var(--primary-dark);
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo img {
+  height: 75px !important;
 }
 
 .navbar-logo span {

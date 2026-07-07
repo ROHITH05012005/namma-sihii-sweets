@@ -21,7 +21,7 @@ const CSRActivities = () => (
     <p>A portion of our profits is directed toward educational support for children of our employees and local community members through scholarships and school supply drives.</p>
 
     <h2>Get Involved</h2>
-    <p>Interested in partnering with us for a CSR initiative or community event? Reach out to us at <a href="mailto:support@namsihiisweets.netlify.in">support@namsihiisweets.netlify.in</a>.</p>
+    <p>Interested in partnering with us for a CSR initiative or community event? Reach out to us at <a href="mailto:support@namsihiisweets.netlify.app">support@namsihiisweets.netlify.app</a>.</p>
   </StaticPage>
 );
 
