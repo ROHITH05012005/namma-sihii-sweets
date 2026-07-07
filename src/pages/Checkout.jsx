@@ -212,14 +212,13 @@ const Checkout = () => {
                 </p>
                 
                 <div className="form-group" style={{ textAlign: 'left', marginTop: '20px' }}>
-                  <label style={{ fontWeight: '600', display: 'block', marginBottom: '8px', color: 'var(--text-primary)' }}>UPI Transaction Ref ID *</label>
+                  <label>UPI Transaction Ref ID *</label>
                   <input 
                     type="text" 
                     value={upiRef} 
                     onChange={e => setUpiRef(e.target.value)} 
                     placeholder="Enter 12-digit UPI Transaction Ref ID" 
                     required
-                    style={{ width: '100%', padding: '10px', borderRadius: 'var(--radius)', border: '1px solid var(--border)' }}
                   />
                 </div>
               </div>

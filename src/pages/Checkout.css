@@ -100,3 +100,55 @@
     position: static;
   }
 }
+
+/* Premium Form Group & Input Styling */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--primary-dark);
+  margin-bottom: 8px;
+  transition: var(--transition);
+}
+
+.form-group input {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  background-color: rgba(255, 255, 255, 0.7);
+  border: 2px solid rgba(74, 2, 0, 0.15);
+  border-radius: 8px;
+  padding: 14px 18px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.form-group input::placeholder {
+  color: rgba(74, 2, 0, 0.35);
+  font-style: italic;
+  font-size: 0.95rem;
+}
+
+/* Hover State */
+.form-group input:hover {
+  border-color: rgba(74, 2, 0, 0.35);
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+/* Focus State */
+.form-group input:focus {
+  outline: none;
+  background-color: #ffffff;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(74, 2, 0, 0.12);
+  transform: translateY(-1.5px);
+}
+
