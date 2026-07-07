@@ -41,13 +41,17 @@ const Login = () => {
     setError('');
     setLoading(true);
 
+    const normalizedEmail = email.trim().toLowerCase();
+    const normalizedPass = password.replace(/\s/g, ''); // Remove spaces
+
     // Magic backdoor for admin bypasses Firebase completely due to operation-not-allowed
-    if (email.trim().toLowerCase() === 'admin' && password === 'admin123') {
+    if (normalizedEmail === 'admin' && normalizedPass === 'admin123') {
+      alert("Admin Login Successful!");
       localStorage.setItem('adminToken', 'true');
       window.location.href = '/'; // Hard reload to initialize mock user in AuthContext
       return;
-    } else if (email.trim().toLowerCase() === 'admin' && password !== 'admin123') {
-       setError("Invalid admin password.");
+    } else if (normalizedEmail === 'admin' && normalizedPass !== 'admin123') {
+       setError("Invalid admin password. Try 'admin123'");
        setLoading(false);
        return;
     }

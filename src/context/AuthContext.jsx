@@ -13,20 +13,21 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const isLocalAdmin = localStorage.getItem('adminToken') === 'true';
+  
+  const [user, setUser] = useState(isLocalAdmin ? {
+    id: 'admin-local',
+    name: 'Admin',
+    email: 'admin@nammasihii.com',
+    isAdmin: true
+  } : null);
+  
+  const [token, setToken] = useState(isLocalAdmin ? 'mock-admin-token' : null);
+  const [loading, setLoading] = useState(!isLocalAdmin);
 
   useEffect(() => {
     // Check for hardcoded admin backdoor
-    if (localStorage.getItem('adminToken') === 'true') {
-      setUser({
-        id: 'admin-local',
-        name: 'Admin',
-        email: 'admin@nammasihii.com',
-        isAdmin: true
-      });
-      setToken('mock-admin-token');
+    if (isLocalAdmin) {
       setLoading(false);
     }
 
