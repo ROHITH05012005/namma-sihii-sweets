@@ -43,10 +43,10 @@ const Footer = () => {
         
         <div className="footer-links-group">
           <h3>Categories</h3>
-          <Link to="/shop?category=traditional">Traditional</Link>
-          <Link to="/shop?category=bengali">Bengali</Link>
-          <Link to="/shop?category=sugar-free">Sugar Free</Link>
-          <Link to="/shop?category=namkeen">Namkeen</Link>
+          <Link to="/shop?category=Sweets">Sweets</Link>
+          <Link to="/shop?category=Namkeens">Namkeens</Link>
+          <Link to="/shop?category=Snacks">Snacks</Link>
+          <Link to="/shop?category=Gifting">Gifting</Link>
         </div>
         
         <div className="footer-newsletter">

@@ -18,7 +18,7 @@ const Shop = () => {
     }
   }, [location.search]);
 
-  const categories = ['all', 'Traditional', 'Bengali', 'Sugar-Free', 'Namkeen'];
+  const categories = ['all', 'Sweets', 'Namkeens', 'Snacks', 'Bakery & Boulangerie', 'Chocolates', 'Gifting', 'Candles', 'Fragrances', 'Ice creams', 'Tea'];
 
   const filteredProducts = filter === 'all' 
     ? products 

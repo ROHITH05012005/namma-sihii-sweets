@@ -6,10 +6,16 @@ import { products } from '../data/products';
 import './Home.css';
 
 const categories = [
-  { title: "Traditional Sweets", image: "/images/traditional_sweets_1783391365914.png", link: "/shop?category=traditional" },
-  { title: "Bengali Sweets", image: "/images/bengali_sweets_1783391376097.png", link: "/shop?category=bengali" },
-  { title: "Sugar Free", image: "/images/sugar_free_1783391385498.png", link: "/shop?category=sugar-free" },
-  { title: "Namkeen & Savories", image: "/images/namkeen_1783391394817.png", link: "/shop?category=namkeen" }
+  { title: "Sweets", image: "/images/traditional_sweets_1783391365914.png", link: "/shop?category=Sweets" },
+  { title: "Namkeens", image: "/images/namkeen_1783391394817.png", link: "/shop?category=Namkeens" },
+  { title: "Snacks", image: "/images/namkeen_1783391394817.png", link: "/shop?category=Snacks" },
+  { title: "Bakery & Boulangerie", image: "/images/realistic_shop.png", link: "/shop?category=Bakery%20%26%20Boulangerie" },
+  { title: "Chocolates", image: "/images/bengali_sweets_1783391376097.png", link: "/shop?category=Chocolates" },
+  { title: "Gifting", image: "/images/natural_ingredients_1783392496282.png", link: "/shop?category=Gifting" },
+  { title: "Candles", image: "/images/traditional_sweets_1783391365914.png", link: "/shop?category=Candles" },
+  { title: "Fragrances", image: "/images/natural_ingredients_1783392496282.png", link: "/shop?category=Fragrances" },
+  { title: "Ice creams", image: "/images/sugar_free_1783391385498.png", link: "/shop?category=Ice%20creams" },
+  { title: "Tea", image: "/images/realistic_shop.png", link: "/shop?category=Tea" }
 ];
 
 const Home = () => {
