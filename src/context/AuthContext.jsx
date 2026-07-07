@@ -7,6 +7,8 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword
 } from 'firebase/auth';
+import { doc, getDoc, setDoc, collection, getDocs, query, limit } from 'firebase/firestore';
+import { db } from '../firebase';
 
 const AuthContext = createContext();
 
@@ -20,11 +22,36 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
+        let isAdmin = false;
+        try {
+          const adminRef = doc(db, 'admin_users', currentUser.uid);
+          const adminSnap = await getDoc(adminRef);
+          
+          if (adminSnap.exists()) {
+            isAdmin = true;
+          } else {
+            // Bootstrap mode: If there are NO admins in the database, the first user to log in becomes the Admin.
+            const adminsQuery = query(collection(db, 'admin_users'), limit(1));
+            const adminsSnap = await getDocs(adminsQuery);
+            
+            if (adminsSnap.empty) {
+              await setDoc(adminRef, { 
+                email: currentUser.email, 
+                role: 'admin',
+                createdAt: new Date().toISOString()
+              });
+              isAdmin = true;
+            }
+          }
+        } catch (error) {
+          console.error("Error verifying admin status:", error);
+        }
+
         setUser({
           id: currentUser.uid,
           name: currentUser.displayName || currentUser.email?.split('@')[0] || 'User',
           email: currentUser.email,
-          isAdmin: currentUser.email === 'rohib1438@gmail.com'
+          isAdmin: isAdmin
         });
         const idToken = await currentUser.getIdToken();
         setToken(idToken);
