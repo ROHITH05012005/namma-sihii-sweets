@@ -107,7 +107,7 @@ const Shop = () => {
               <SlidersHorizontal size={18} className="filter-icon" />
             </div>
 
-            {currentCategoryData && currentCategoryData.subcategories.length > 0 && (
+            {currentCategoryData && currentCategoryData.dropdown && currentCategoryData.dropdown.length > 0 && (
               <div className="filter-section">
                 <div 
                   className="filter-section-header" 
