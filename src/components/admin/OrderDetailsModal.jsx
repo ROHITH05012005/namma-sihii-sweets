@@ -92,7 +92,22 @@ const OrderDetailsModal = ({ isOpen, onClose, order }) => {
           </div>
         </div>
 
-        <div className="modal-actions" style={{ marginTop: '24px' }}>
+        <div className="modal-actions" style={{ marginTop: '24px', display: 'flex', justifyContent: 'space-between' }}>
+          <button 
+            type="button" 
+            className="btn-primary" 
+            style={{ background: '#25D366', borderColor: '#25D366', display: 'flex', alignItems: 'center', gap: '8px' }}
+            onClick={() => {
+              const phone = order.userPhone.replace(/\D/g, '');
+              let message = `Hello ${order.userName},\n\nGreetings from Namma Sihii Sweets! 🍬\n`;
+              if (order.status === 'shipped') message += `Good news! Your Order #${order.id.slice(-6).toUpperCase()} has been SHIPPED and is on its way to you.`;
+              else if (order.status === 'delivered') message += `Your Order #${order.id.slice(-6).toUpperCase()} has been DELIVERED! We hope you enjoy the sweets.`;
+              else message += `We are reaching out regarding your Order #${order.id.slice(-6).toUpperCase()}.`;
+              window.open(`https://wa.me/91${phone}?text=${encodeURIComponent(message)}`, '_blank');
+            }}
+          >
+            Notify Customer via WhatsApp
+          </button>
           <button type="button" className="btn-secondary" onClick={onClose}>Close</button>
         </div>
       </div>

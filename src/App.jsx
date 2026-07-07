@@ -8,6 +8,7 @@ import Cart from './pages/Cart';
 import Login from './pages/Login';
 import Checkout from './pages/Checkout';
 import Admin from './pages/Admin';
+import Profile from './pages/Profile';
 import './App.css';
 import About from './pages/About';
 import { AuthProvider } from './context/AuthContext';
@@ -27,6 +28,7 @@ function App() {
                 <Route path="/shop" element={<Shop />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/profile" element={<Profile />} />
                 <Route path="/checkout" element={<Checkout />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/admin" element={<Admin />} />

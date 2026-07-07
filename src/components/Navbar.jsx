@@ -24,14 +24,22 @@ const Navbar = () => {
           <Link to="/" onClick={() => setIsOpen(false)} style={{ color: 'var(--background)' }}>Home</Link>
           <Link to="/shop" onClick={() => setIsOpen(false)} style={{ color: 'var(--background)' }}>Shop</Link>
           <Link to="/about" onClick={() => setIsOpen(false)} style={{ color: 'var(--background)' }}>About Us</Link>
-          {user && <Link to="/admin" onClick={() => setIsOpen(false)} style={{ color: 'var(--background)' }}>Admin</Link>}
+          {user ? (
+            <Link to={user.isAdmin ? "/admin" : "/profile"} className="mobile-nav-link" onClick={() => setIsOpen(false)} style={{ color: 'var(--background)' }}>
+              {user.isAdmin ? 'Admin Dashboard' : 'My Account'}
+            </Link>
+          ) : (
+            <Link to="/login" className="mobile-nav-link" onClick={() => setIsOpen(false)} style={{ color: 'var(--background)' }}>Login</Link>
+          )}
         </nav>
         
         <div className="navbar-actions">
           {user ? (
             <div className="user-menu">
               <span className="user-name" style={{ color: 'var(--background)' }}>Hi, {user.name.split(' ')[0]}</span>
-              <Link to="/admin" className="btn-admin" style={{ fontSize: '0.9rem', color: 'var(--secondary)', textDecoration: 'underline', marginLeft: '10px' }}>Dashboard</Link>
+              <Link to={user.isAdmin ? "/admin" : "/profile"} className="btn-admin" style={{ fontSize: '0.9rem', color: 'var(--secondary)', textDecoration: 'underline', marginLeft: '10px' }}>
+                {user.isAdmin ? 'Dashboard' : 'My Account'}
+              </Link>
               <button className="btn-logout" onClick={logout} style={{ marginLeft: '10px', backgroundColor: 'transparent', color: 'var(--background)', border: '1px solid var(--secondary)', padding: '4px 8px', borderRadius: '4px' }}>Logout</button>
             </div>
           ) : (
