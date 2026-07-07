@@ -19,7 +19,7 @@ const Home = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % categories.length);
-    }, 4000);
+    }, 2500);
     return () => clearInterval(timer);
   }, []);
 
@@ -115,7 +115,7 @@ const Home = () => {
         <div className="container feature-container">
           <div className="feature-grid">
             <div className="feature-image-wrapper">
-              <img src="/images/pure_ingredients_1783392308887.png" alt="Pure Indian sweet ingredients like desi ghee and premium nuts" className="feature-image" />
+              <img src="/images/natural_ingredients_1783392496282.png" alt="Pure Indian sweet ingredients like desi ghee and premium nuts" className="feature-image" />
             </div>
             <div className="feature-content" style={{ color: 'var(--background)' }}>
               <h2 style={{ color: 'var(--secondary)', marginBottom: '24px' }}>Pure Ingredients. Pure Joy.</h2>
