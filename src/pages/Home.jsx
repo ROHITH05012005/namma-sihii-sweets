@@ -31,16 +31,16 @@ const Home = () => {
           <div 
             key={`hero-${index}`}
             className={`hero-slide ${index === currentSlide ? 'active' : ''}`}
-            style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${cat.image})` }}
+            style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${cat.image})` }}
           />
         ))}
         
         <div className="container hero-content">
-          <div className="hero-text" style={{ backgroundColor: 'rgba(42, 5, 10, 0.85)', padding: '40px', borderRadius: '12px', border: '2px solid var(--secondary)' }}>
-            <h1 style={{ color: 'var(--background)' }}>Sweets that Celebrate Tradition</h1>
-            <p style={{ color: '#fff' }}>Experience the rich, authentic taste of Indian heritage with our handcrafted, premium sweets made fresh daily.</p>
+          <div className="hero-text" style={{ textShadow: '0 4px 12px rgba(0,0,0,0.8)' }}>
+            <h1 style={{ color: 'var(--background)', textShadow: '0 4px 16px rgba(0,0,0,0.9)' }}>Sweets that Celebrate Tradition</h1>
+            <p style={{ color: '#fff', fontSize: '1.2rem', textShadow: '0 2px 8px rgba(0,0,0,0.9)' }}>Experience the rich, authentic taste of Indian heritage with our handcrafted, premium sweets made fresh daily.</p>
             <div className="hero-actions">
-              <Link to="/shop" className="btn-primary" style={{ backgroundColor: 'var(--secondary)', color: 'var(--primary-dark)', borderColor: 'var(--secondary)' }}>
+              <Link to="/shop" className="btn-primary" style={{ backgroundColor: 'var(--secondary)', color: 'var(--primary-dark)', borderColor: 'var(--secondary)', fontWeight: 'bold' }}>
                 Shop Now <ArrowRight size={20} />
               </Link>
               <Link to="/about" className="btn-secondary" style={{ color: 'var(--background)', borderColor: 'var(--background)' }}>Our Story</Link>
