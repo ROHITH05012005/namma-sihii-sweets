@@ -129,6 +129,26 @@ const Home = () => {
           </div>
         </div>
       </section>
+      {/* Reviews & Experiences Section */}
+      <section className="section experiences-section" style={{ backgroundColor: 'var(--surface-hover)', padding: '80px 0' }}>
+        <div className="container" style={{ textAlign: 'center', maxWidth: '800px' }}>
+          <h2 className="section-title" style={{ marginBottom: '16px' }}>Hear Their Sweet Experiences</h2>
+          <h3 style={{ color: 'var(--secondary)', marginBottom: '32px', fontSize: '1.5rem', fontFamily: 'var(--font-serif)', fontStyle: 'italic' }}>
+            Our Journey Together
+          </h3>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: '1.8', marginBottom: '48px' }}>
+            At Namma Sihii Sweets, our story is not just about the sweets we craft but the people who bring them to life. From our skilled artisans and bakers to our dedicated team across every department, each member plays a vital role in shaping our legacy. With passion, precision, and an unwavering commitment to excellence, they pour their heart into every creation, ensuring that tradition and innovation go hand in hand. This space is dedicated to their voices—their experiences, growth, and the moments that make Namma Sihii Sweets more than just a workplace. Because our journey is not just about what we create, but the people who make it possible.
+          </p>
+          
+          {/* Google Reviews Widget Placeholder */}
+          <div className="google-reviews-container" style={{ minHeight: '200px', border: '2px dashed var(--secondary)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px', backgroundColor: 'var(--surface)' }}>
+            <div id="google-reviews-widget-placeholder">
+              <p style={{ color: 'var(--text-secondary)', fontWeight: 'bold' }}>[Google Reviews Widget Will Go Here]</p>
+              <p style={{ fontSize: '0.9rem', color: 'var(--primary)' }}>Please paste your widget link/script into this container.</p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

@@ -20,11 +20,18 @@ const Footer = () => {
           <p style={{ color: 'rgba(255,255,255,0.8)', marginBottom: '8px' }}>
             <strong>Ph:</strong> 9900161303 / 9036611627
           </p>
-          <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.9rem', lineHeight: '1.4' }}>
-            27, 9th Main Rd,<br/>
-            opp. to Dmart Ready, Kalkere,<br/>
-            Bengaluru, Karnataka 560016
-          </p>
+          <div className="map-container" style={{ marginTop: '12px', borderRadius: '8px', overflow: 'hidden' }}>
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.424674720612!2d77.6625!3d13.0084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae110000000001%3A0x0!2s27%2C%209th%20Main%20Rd%2C%20opp.%20to%20Dmart%20Ready%2C%20Kalkere%2C%20Bengaluru%2C%20Karnataka%20560016!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+              width="100%" 
+              height="150" 
+              style={{ border: 0 }} 
+              allowFullScreen="" 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Namma Sihii Sweets Location">
+            </iframe>
+          </div>
         </div>
         
         <div className="footer-links-group">
