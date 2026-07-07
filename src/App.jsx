@@ -20,6 +20,7 @@ import Feedback from './pages/Feedback';
 import TermsConditions from './pages/TermsConditions';
 import ReturnsExchange from './pages/ReturnsExchange';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import CategoryLanding from './pages/CategoryLanding';
 import './App.css';
 import { AuthProvider } from './context/AuthContext';
 import { CategoryProvider } from './context/CategoryContext';
@@ -53,6 +54,7 @@ function App() {
                 <Route path="/terms-conditions" element={<TermsConditions />} />
                 <Route path="/returns-exchange" element={<ReturnsExchange />} />
                 <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                <Route path="/category/:slug" element={<CategoryLanding />} />
               </Routes>
             </main>
             <Footer />

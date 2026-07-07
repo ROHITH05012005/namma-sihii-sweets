@@ -2,14 +2,36 @@ import React, { useState } from 'react';
 import StaticPage from './StaticPage';
 import { Send } from 'lucide-react';
 
+import { db } from '../firebase';
+import { collection, addDoc } from 'firebase/firestore';
+
 const Feedback = () => {
   const [form, setForm] = useState({ name: '', email: '', rating: 0, category: '', message: '' });
   const [hover, setHover] = useState(0);
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    if (form.rating === 0) {
+      alert('Please rate your experience by clicking the stars!');
+      return;
+    }
+    setLoading(true);
+    try {
+      if (db) {
+        await addDoc(collection(db, 'feedback'), {
+          ...form,
+          createdAt: new Date().toISOString(),
+          status: 'pending'
+        });
+      }
+    } catch (err) {
+      console.error('Error saving feedback:', err);
+    } finally {
+      setSubmitted(true);
+      setLoading(false);
+    }
   };
 
   if (submitted) {

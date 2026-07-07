@@ -5,7 +5,7 @@ import { useCategories } from '../context/CategoryContext';
 import { db } from '../firebase';
 import { collection, query, orderBy, onSnapshot, doc, updateDoc, setDoc, deleteDoc } from 'firebase/firestore';
 import { products as localProducts } from '../data/products';
-import { Package, ShoppingBag, LayoutList, Trash2, Edit } from 'lucide-react';
+import { Package, ShoppingBag, LayoutList, Trash2, Edit, MessageSquare } from 'lucide-react';
 import ProductModal from '../components/admin/ProductModal';
 import CategoryModal from '../components/admin/CategoryModal';
 import OrderDetailsModal from '../components/admin/OrderDetailsModal';
@@ -20,6 +20,7 @@ const Admin = () => {
   // Data States
   const [orders, setOrders] = useState([]);
   const [products, setProducts] = useState([]);
+  const [feedbackList, setFeedbackList] = useState([]);
   const [fetching, setFetching] = useState(true);
   const [initLoading, setInitLoading] = useState(false);
   
@@ -67,6 +68,22 @@ const Admin = () => {
     return () => unsubscribe();
   }, [user]);
 
+  // Fetch Feedback
+  useEffect(() => {
+    if (!user || !user.isAdmin) return;
+    const q = query(collection(db, 'feedback'));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const feedbackData = [];
+      snapshot.forEach((doc) => {
+        feedbackData.push({ id: doc.id, ...doc.data() });
+      });
+      // Sort in memory to avoid index requirements
+      feedbackData.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+      setFeedbackList(feedbackData);
+    });
+    return () => unsubscribe();
+  }, [user]);
+
   const updateOrderStatus = async (orderId, newStatus) => {
     try {
       await updateDoc(doc(db, 'orders', orderId), { status: newStatus });
@@ -82,6 +99,16 @@ const Admin = () => {
         await deleteDoc(doc(db, 'products', productId));
       } catch (error) {
         alert("Failed to delete product.");
+      }
+    }
+  };
+
+  const deleteFeedback = async (feedbackId) => {
+    if (window.confirm("Are you sure you want to delete this feedback?")) {
+      try {
+        await deleteDoc(doc(db, 'feedback', feedbackId));
+      } catch (error) {
+        alert("Failed to delete feedback.");
       }
     }
   };
@@ -138,6 +165,12 @@ const Admin = () => {
                 onClick={() => setActiveTab('categories')}
               >
                 <LayoutList size={18} /> Categories
+              </button>
+              <button 
+                className={`admin-nav-btn ${activeTab === 'feedback' ? 'active' : ''}`}
+                onClick={() => setActiveTab('feedback')}
+              >
+                <MessageSquare size={18} /> Feedback
               </button>
             </nav>
           </aside>
@@ -315,6 +348,57 @@ const Admin = () => {
                       </tbody>
                     </table>
                   </div>
+              </div>
+            )}
+
+            {activeTab === 'feedback' && (
+              <div className="admin-tab-content">
+                <div className="tab-header">
+                  <h2>Customer Feedback</h2>
+                </div>
+                
+                <div className="products-table-wrapper">
+                  {feedbackList.length === 0 ? (
+                    <p>No feedback received yet.</p>
+                  ) : (
+                    <table className="admin-table">
+                      <thead>
+                        <tr>
+                          <th>Customer</th>
+                          <th>Category</th>
+                          <th>Rating</th>
+                          <th>Message</th>
+                          <th>Date</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {feedbackList.map(fb => {
+                          const dateStr = fb.createdAt ? new Date(fb.createdAt).toLocaleDateString('en-IN') : 'N/A';
+                          return (
+                            <tr key={fb.id}>
+                              <td>
+                                <strong>{fb.name}</strong>
+                                <div style={{ fontSize: '11px', color: 'var(--text-secondary)' }}>{fb.email}</div>
+                              </td>
+                              <td style={{ textTransform: 'capitalize' }}>{fb.category}</td>
+                              <td style={{ color: '#F5A623', fontSize: '1.1rem' }}>
+                                {'★'.repeat(fb.rating || 0)}{'☆'.repeat(5 - (fb.rating || 0))}
+                              </td>
+                              <td><div style={{ maxWidth: '300px', whiteSpace: 'normal', fontSize: '13px' }}>{fb.message}</div></td>
+                              <td>{dateStr}</td>
+                              <td>
+                                <button className="icon-btn delete" onClick={() => deleteFeedback(fb.id)}>
+                                  <Trash2 size={16} />
+                                </button>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  )}
+                </div>
               </div>
             )}
           </main>

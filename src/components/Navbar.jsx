@@ -131,7 +131,7 @@ const Navbar = () => {
         <div className="container category-nav-container">
           {categories.map(cat => (
             <div key={cat.name} className="nav-item-dropdown">
-              <Link to={`/shop?category=${encodeURIComponent(cat.name)}`} className="category-nav-link">
+              <Link to={`/category/${encodeURIComponent(cat.name)}`} className="category-nav-link">
                 {cat.name} {cat.dropdown && cat.dropdown.length > 0 && <span className="dropdown-arrow">▼</span>}
               </Link>
               {cat.dropdown && cat.dropdown.length > 0 && (
