@@ -41,6 +41,11 @@ const Footer = () => {
               Bengaluru, Karnataka 560016
             </a>
           </p>
+          <div style={{ marginTop: '20px' }}>
+            <Link to="/contact" className="btn-primary" style={{ display: 'inline-block', padding: '10px 32px', textDecoration: 'none', fontWeight: 'bold' }}>
+              Contact Us
+            </Link>
+          </div>
         </div>
         
         <div className="footer-links-group footer-categories-grid">
