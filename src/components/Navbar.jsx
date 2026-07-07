@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingCart, Menu, X, Search, Home, Store, Info, User } from 'lucide-react';
+import { ShoppingCart, Menu, X, Search, Home, Store, Info, User, PhoneCall } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { useCategories } from '../context/CategoryContext';
@@ -62,6 +62,10 @@ const Navbar = () => {
               <Info size={22} />
               <span>About Us</span>
             </Link>
+            <Link to="/contact" className="icon-nav-item">
+              <PhoneCall size={22} />
+              <span>Contact</span>
+            </Link>
             
             {user ? (
               <div className="icon-nav-item profile-dropdown-container">
@@ -109,6 +113,7 @@ const Navbar = () => {
             <Link to="/" onClick={() => setIsOpen(false)}>Home</Link>
             <Link to="/shop" onClick={() => setIsOpen(false)}>Shop</Link>
             <Link to="/about" onClick={() => setIsOpen(false)}>About Us</Link>
+            <Link to="/contact" onClick={() => setIsOpen(false)}>Contact</Link>
             {user ? (
               <>
                 <Link to={user.isAdmin ? "/admin" : "/profile"} onClick={() => setIsOpen(false)}>Profile</Link>
