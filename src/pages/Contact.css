@@ -162,6 +162,28 @@
   border: 1px solid #f5c6cb;
 }
 
+/* Full-width Map Section */
+.map-section {
+  margin-top: 60px;
+  padding: 40px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.map-section h2 {
+  color: var(--primary-dark);
+  font-family: var(--font-serif);
+  margin-bottom: 24px;
+}
+
+.map-container-full {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
 @media (max-width: 900px) {
   .contact-container {
     grid-template-columns: 1fr;

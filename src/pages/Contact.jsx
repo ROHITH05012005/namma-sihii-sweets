@@ -76,19 +76,6 @@ const Contact = () => {
                 </div>
               </div>
             </div>
-
-            <div className="contact-map" style={{ marginTop: '30px', borderRadius: '8px', overflow: 'hidden' }}>
-              <iframe 
-                src="https://maps.google.com/maps?q=NAMMA%20SIHII%20MANE,%20Kalkere,%20Bengaluru&t=&z=16&ie=UTF8&iwloc=&output=embed" 
-                width="100%" 
-                height="200" 
-                style={{ border: 0 }} 
-                allowFullScreen="" 
-                loading="lazy" 
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Namma Sihii Sweets Location">
-              </iframe>
-            </div>
           </div>
 
           {/* Contact Form */}
@@ -152,7 +139,23 @@ const Contact = () => {
               </button>
             </form>
           </div>
+        </div>
 
+        {/* Full-width Map Section */}
+        <div className="map-section glass-panel">
+          <h2>Find Us on the Map</h2>
+          <div className="map-container-full">
+            <iframe 
+              src="https://maps.google.com/maps?q=NAMMA%20SIHII%20MANE,%20Kalkere,%20Bengaluru&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+              width="100%" 
+              height="450" 
+              style={{ border: 0 }} 
+              allowFullScreen="" 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Namma Sihii Sweets Location">
+            </iframe>
+          </div>
         </div>
       </div>
     </div>
