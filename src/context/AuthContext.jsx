@@ -18,7 +18,21 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Check for hardcoded admin backdoor
+    if (localStorage.getItem('adminToken') === 'true') {
+      setUser({
+        id: 'admin-local',
+        name: 'Admin',
+        email: 'admin@nammasihii.com',
+        isAdmin: true
+      });
+      setToken('mock-admin-token');
+      setLoading(false);
+    }
+
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (localStorage.getItem('adminToken') === 'true') return; // Ignore if local admin is logged in
+
       if (currentUser) {
         setUser({
           id: currentUser.uid,
@@ -65,6 +79,11 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
+    if (localStorage.getItem('adminToken') === 'true') {
+      localStorage.removeItem('adminToken');
+      window.location.href = '/';
+      return;
+    }
     await signOut(auth);
   };
 

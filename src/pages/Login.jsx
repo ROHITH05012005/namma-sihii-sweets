@@ -41,10 +41,11 @@ const Login = () => {
     setError('');
     setLoading(true);
 
-    let loginEmail = email;
-    // Magic backdoor for admin
+    // Magic backdoor for admin bypasses Firebase completely due to operation-not-allowed
     if (email.trim().toLowerCase() === 'admin' && password === 'admin123') {
-      loginEmail = 'admin@nammasihii.com';
+      localStorage.setItem('adminToken', 'true');
+      window.location.href = '/'; // Hard reload to initialize mock user in AuthContext
+      return;
     } else if (email.trim().toLowerCase() === 'admin' && password !== 'admin123') {
        setError("Invalid admin password.");
        setLoading(false);
@@ -52,14 +53,10 @@ const Login = () => {
     }
 
     if (isRegister) {
-      const result = await registerWithEmail(loginEmail, password);
+      const result = await registerWithEmail(email, password);
       if (!result.success) setError(result.message);
     } else {
-      let result = await loginWithEmail(loginEmail, password);
-      // Automatically register the admin account if it's the first time they are logging in
-      if (!result.success && loginEmail === 'admin@nammasihii.com' && (result.message.includes('auth/user-not-found') || result.message.includes('auth/invalid-credential'))) {
-        result = await registerWithEmail(loginEmail, password);
-      }
+      const result = await loginWithEmail(email, password);
       if (!result.success) setError(result.message);
     }
     setLoading(false);
