@@ -12,7 +12,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   return (
-    <header className="navbar-container" style={{ backgroundColor: 'var(--primary)', borderBottom: '2px solid var(--secondary)' }}>
+    <header className="navbar-container" style={{ backgroundColor: 'var(--primary-dark)', borderBottom: '2px solid var(--secondary)', padding: '8px 0' }}>
       <div className="container navbar-container" style={{ backgroundColor: 'transparent' }}>
         <Link to="/" className="navbar-logo" style={{ display: 'flex', alignItems: 'center' }}>
           <img src="/logo_blended.png" alt="Namma Sihii Sweets Logo" style={{ height: '70px', borderRadius: '4px' }} />
