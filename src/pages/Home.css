@@ -117,7 +117,7 @@
 }
 
 .carousel-slide:hover .carousel-overlay {
-  background: linear-gradient(to top, rgba(197, 160, 89, 0.8), rgba(42, 5, 10, 0.4));
+  background: linear-gradient(to top, rgba(42, 5, 10, 0.95), rgba(42, 5, 10, 0.3));
 }
 
 .carousel-overlay h3 {
