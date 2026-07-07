@@ -23,7 +23,7 @@ const blogs = [
   {
     title: 'Gifting Guide: Sweets for Every Occasion',
     date: 'May 02, 2026',
-    excerpt: 'Whether it's Diwali, a wedding, or a corporate event — our curated gift hampers make the perfect impression every time.',
+    excerpt: "Whether it's Diwali, a wedding, or a corporate event — our curated gift hampers make the perfect impression every time.",
     img: '/images/gift_hamper.png'
   },
 ];
