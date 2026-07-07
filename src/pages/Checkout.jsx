@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MapPin } from 'lucide-react';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
@@ -65,9 +65,31 @@ const Checkout = () => {
       alert("Please fill the address details");
       return;
     }
-    if (paymentMethod === 'upi' && !upiRef) {
-      alert("Please enter the UPI transaction reference ID.");
-      return;
+    if (paymentMethod === 'upi') {
+      if (!upiRef) {
+        alert("Please enter the UPI transaction reference ID.");
+        return;
+      }
+      // Verify exactly 12 numeric digits
+      if (!/^\d{12}$/.test(upiRef)) {
+        alert("Invalid UPI Reference ID. It must be exactly 12 numeric digits.");
+        return;
+      }
+
+      // Verify transaction ID uniqueness in database to prevent reuse
+      setLoading(true);
+      try {
+        const q = query(collection(db, 'orders'), where('upiRef', '==', upiRef));
+        const querySnapshot = await getDocs(q);
+        if (!querySnapshot.empty) {
+          alert("This Transaction ID has already been used. Please check and try again.");
+          setLoading(false);
+          return;
+        }
+      } catch (err) {
+        console.error("Error validating transaction ID:", err);
+      }
+      setLoading(false);
     }
 
     setLoading(true);
