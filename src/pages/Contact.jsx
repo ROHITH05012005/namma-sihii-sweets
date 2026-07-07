@@ -56,7 +56,7 @@ const Contact = () => {
                 <Phone className="info-icon" />
                 <div>
                   <h4>Phone</h4>
-                  <p>+91 98765 43210</p>
+                  <p>9900161303 / 9036611627</p>
                 </div>
               </div>
               
@@ -72,9 +72,22 @@ const Contact = () => {
                 <MapPin className="info-icon" />
                 <div>
                   <h4>Address</h4>
-                  <p>123 Sweet Street, Jayanagar,<br/>Bangalore, Karnataka 560011</p>
+                  <p>27, 9th Main Rd,<br/>opp. to Dmart Ready, Kalkere,<br/>Bengaluru, Karnataka 560016</p>
                 </div>
               </div>
+            </div>
+
+            <div className="contact-map" style={{ marginTop: '30px', borderRadius: '8px', overflow: 'hidden' }}>
+              <iframe 
+                src="https://maps.google.com/maps?q=NAMMA%20SIHII%20MANE,%20Kalkere,%20Bengaluru&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+                width="100%" 
+                height="200" 
+                style={{ border: 0 }} 
+                allowFullScreen="" 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Namma Sihii Sweets Location">
+              </iframe>
             </div>
           </div>
 

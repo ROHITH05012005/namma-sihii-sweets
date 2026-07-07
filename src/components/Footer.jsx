@@ -1,8 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useCategories } from '../context/CategoryContext';
 import './Footer.css';
 
 const Footer = () => {
+  const { categories } = useCategories();
+  // Take top 6 categories for the footer
+  const footerCategories = categories.slice(0, 6);
+
   return (
     <footer className="footer-container">
       <div className="container footer-content">
@@ -43,10 +48,11 @@ const Footer = () => {
         
         <div className="footer-links-group">
           <h3>Categories</h3>
-          <Link to="/shop?category=Sweets">Sweets</Link>
-          <Link to="/shop?category=Namkeens">Namkeens</Link>
-          <Link to="/shop?category=Snacks">Snacks</Link>
-          <Link to="/shop?category=Gifting">Gifting</Link>
+          {footerCategories.map(cat => (
+            <Link key={cat.id || cat.name} to={cat.link || `/shop?category=${encodeURIComponent(cat.name)}`}>
+              {cat.name}
+            </Link>
+          ))}
         </div>
         
         <div className="footer-newsletter">
