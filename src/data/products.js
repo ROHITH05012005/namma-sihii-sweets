@@ -139,7 +139,7 @@ export const products = [
     price: 1200,
     weight: "1.5 kg",
     description: "A curated selection of our finest sweets, dry fruits, and namkeens in a premium gift box.",
-    image: "https://placehold.co/400x400/f8f9fa/c8a078?text=Premium+Gift+Hamper",
+    image: "/images/gift_hamper.png",
     isBestseller: true,
     isNew: false
   },
@@ -151,7 +151,7 @@ export const products = [
     price: 350,
     weight: "1 Pc",
     description: "Hand-poured soy wax candle with a calming, traditional sandalwood scent.",
-    image: "https://placehold.co/400x400/f8f9fa/c8a078?text=Sandalwood+Candle",
+    image: "/images/sandalwood_candle.png",
     isBestseller: false,
     isNew: true
   },
@@ -163,7 +163,7 @@ export const products = [
     price: 450,
     weight: "100 ml",
     description: "A pure, sweet-smelling room fragrance reminiscent of an authentic Indian sweet shop.",
-    image: "https://placehold.co/400x400/f8f9fa/c8a078?text=Room+Fragrance",
+    image: "/images/room_fragrance.png",
     isBestseller: false,
     isNew: true
   },
