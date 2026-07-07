@@ -30,7 +30,7 @@ const Footer = () => {
         </div>
         
         <div className="footer-links-group">
-          <h3>Contact Us</h3>
+          <h3><Link to="/contact" style={{ color: 'var(--secondary)', textDecoration: 'none' }}>Contact Us</Link></h3>
           <p style={{ color: 'rgba(255,255,255,0.8)', marginBottom: '8px' }}>
             <strong>Ph:</strong> 9900161303 / 9036611627
           </p>
@@ -41,25 +41,6 @@ const Footer = () => {
               Bengaluru, Karnataka 560016
             </a>
           </p>
-          <div style={{ marginTop: '20px' }}>
-            <Link 
-              to="/contact" 
-              style={{ 
-                display: 'inline-block', 
-                padding: '10px 32px', 
-                textDecoration: 'none', 
-                fontWeight: 'bold',
-                backgroundColor: 'var(--secondary)',
-                color: 'var(--primary-dark)',
-                borderRadius: 'var(--radius)',
-                border: '2px solid var(--secondary)',
-                transition: 'var(--transition)',
-                letterSpacing: '0.5px'
-              }}
-            >
-              Contact Us
-            </Link>
-          </div>
         </div>
         
         <div className="footer-links-group footer-categories-grid">
