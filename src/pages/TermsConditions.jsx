@@ -28,7 +28,7 @@ const TermsConditions = () => (
     <p>These terms are governed by the laws of India. Any disputes shall be subject to the exclusive jurisdiction of courts in Bengaluru, Karnataka.</p>
 
     <h2>8. Contact Us</h2>
-    <p>For any queries regarding these terms, contact us at <a href="mailto:support@nammasihiisweets.com">support@nammasihiisweets.com</a> or call 9900161303.</p>
+    <p>For any queries regarding these terms, contact us at <a href="mailto:support@namsihiisweets.netlify.in">support@namsihiisweets.netlify.in</a> or call 9900161303.</p>
   </StaticPage>
 );
 

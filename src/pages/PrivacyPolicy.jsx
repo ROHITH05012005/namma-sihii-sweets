@@ -37,13 +37,13 @@ const PrivacyPolicy = () => (
     <p>Our website uses cookies to enhance your browsing experience. You can disable cookies in your browser settings, though this may affect some functionality.</p>
 
     <h2>6. Your Rights</h2>
-    <p>You have the right to access, correct, or delete your personal data. To exercise these rights, contact us at <a href="mailto:support@nammasihiisweets.com">support@nammasihiisweets.com</a>.</p>
+    <p>You have the right to access, correct, or delete your personal data. To exercise these rights, contact us at <a href="mailto:support@namsihiisweets.netlify.in">support@namsihiisweets.netlify.in</a>.</p>
 
     <h2>7. Changes to This Policy</h2>
     <p>We may update this policy from time to time. Changes will be posted on this page with an updated date.</p>
 
     <h2>8. Contact</h2>
-    <p>For privacy-related queries: <a href="mailto:support@nammasihiisweets.com">support@nammasihiisweets.com</a> | 9900161303</p>
+    <p>For privacy-related queries: <a href="mailto:support@namsihiisweets.netlify.in">support@namsihiisweets.netlify.in</a> | 9900161303</p>
   </StaticPage>
 );
 

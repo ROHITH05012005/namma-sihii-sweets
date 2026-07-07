@@ -1,13 +1,14 @@
 /* Announcement Banner */
 .announcement-banner {
-  background-color: #f1d4ff; /* Light purple like Kanti Sweets */
-  color: #000;
+  background-color: var(--secondary); /* Theme Gold */
+  color: var(--primary-dark); /* Theme Burgundy */
   text-align: center;
   padding: 8px 16px;
   font-size: 0.85rem;
   line-height: 1.4;
   font-family: 'Inter', sans-serif;
   border-bottom: 1px solid rgba(0,0,0,0.1);
+  font-weight: 500;
 }
 
 .announcement-banner p {
@@ -15,8 +16,9 @@
 }
 
 .announcement-banner .highlight-text {
-  color: #0000ee; /* Blue link color */
-  font-weight: 500;
+  color: var(--primary-dark);
+  font-weight: 700;
+  text-decoration: underline;
 }
 
 .navbar-container {
