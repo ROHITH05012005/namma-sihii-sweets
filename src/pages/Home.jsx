@@ -1,14 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 import { products } from '../data/products';
 import './Home.css';
 
+const categories = [
+  { title: "Traditional Sweets", image: "/images/traditional_sweets_1783391365914.png", link: "/shop?category=traditional" },
+  { title: "Bengali Sweets", image: "/images/bengali_sweets_1783391376097.png", link: "/shop?category=bengali" },
+  { title: "Sugar Free", image: "/images/sugar_free_1783391385498.png", link: "/shop?category=sugar-free" },
+  { title: "Namkeen & Savories", image: "/images/namkeen_1783391394817.png", link: "/shop?category=namkeen" }
+];
+
 const Home = () => {
   const bestsellers = products.filter(p => p.isBestseller).slice(0, 3);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  return (
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % categories.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
     <div className="home-page">
       {/* Hero Section */}
       <section className="hero-section">
@@ -26,31 +39,33 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Categories Section */}
-      <section className="section categories-section">
+      {/* Categories Slideshow Section */}
+      <section className="section categories-section" style={{ backgroundColor: 'var(--background)' }}>
         <div className="container">
           <h2 className="section-title">Shop by Category</h2>
-          <div className="categories-grid">
-            <Link to="/shop?category=traditional" className="category-card">
-              <div className="category-overlay">
-                <h3>Traditional Sweets</h3>
+          <div className="carousel-container">
+            {categories.map((cat, index) => (
+              <div 
+                key={index}
+                className={`carousel-slide ${index === currentSlide ? 'active' : ''}`}
+                style={{ backgroundImage: `url(${cat.image})` }}
+              >
+                <Link to={cat.link} className="carousel-overlay">
+                  <h3>{cat.title}</h3>
+                  <span className="btn-secondary" style={{ marginTop: '16px', borderColor: 'var(--secondary)', color: 'var(--secondary)' }}>Explore <ArrowRight size={16} style={{ marginLeft: '8px' }}/></span>
+                </Link>
               </div>
-            </Link>
-            <Link to="/shop?category=bengali" className="category-card">
-              <div className="category-overlay">
-                <h3>Bengali Sweets</h3>
-              </div>
-            </Link>
-            <Link to="/shop?category=sugar-free" className="category-card">
-              <div className="category-overlay">
-                <h3>Sugar Free</h3>
-              </div>
-            </Link>
-            <Link to="/shop?category=namkeen" className="category-card">
-              <div className="category-overlay">
-                <h3>Namkeen & Savories</h3>
-              </div>
-            </Link>
+            ))}
+            
+            <div className="carousel-dots">
+              {categories.map((_, index) => (
+                <button 
+                  key={index} 
+                  className={`dot ${index === currentSlide ? 'active' : ''}`}
+                  onClick={() => setCurrentSlide(index)}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
