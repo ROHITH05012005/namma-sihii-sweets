@@ -62,9 +62,27 @@ const Navbar = () => {
                 'View All'
               ] 
             },
-            { name: 'Namkeens' },
+            { 
+              name: 'Namkeens',
+              dropdown: [
+                'Roasted Namkeens',
+                'View All'
+              ]
+            },
             { name: 'Snacks' },
-            { name: 'Bakery & Boulangerie' },
+            { 
+              name: 'Bakery & Boulangerie',
+              dropdown: [
+                'Cakes',
+                'Doughnuts',
+                'Beverages',
+                'Sticks',
+                'Cookies and Biscuits',
+                'Breads',
+                'Crossiants & Rolls',
+                'View All'
+              ]
+            },
             { name: 'Chocolates' },
             { name: 'Gifting' },
             { name: 'Candles' },
