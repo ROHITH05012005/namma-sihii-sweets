@@ -12,10 +12,10 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   return (
-    <header className="navbar-container" style={{ backgroundColor: 'var(--primary-dark)', borderBottom: '2px solid var(--secondary)' }}>
+    <header className="navbar-container" style={{ backgroundColor: 'var(--primary)', borderBottom: '2px solid var(--secondary)' }}>
       <div className="container navbar-container" style={{ backgroundColor: 'transparent' }}>
         <Link to="/" className="navbar-logo" style={{ display: 'flex', alignItems: 'center' }}>
-          <img src="/logo.jpg" alt="Namma Sihii Sweets Logo" style={{ height: '70px', borderRadius: '4px' }} />
+          <img src="/logo_blended.png" alt="Namma Sihii Sweets Logo" style={{ height: '70px', borderRadius: '4px' }} />
         </Link>
         
         <nav className={`navbar-links ${isOpen ? 'open' : ''}`}>
