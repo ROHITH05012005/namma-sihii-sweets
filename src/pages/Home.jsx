@@ -111,12 +111,21 @@ const Home = () => {
       </section>
 
       {/* Feature Highlight */}
-      <section className="section feature-section">
-        <div className="container feature-container glass-panel">
-          <div className="feature-content">
-            <h2>Pure Ingredients. Pure Joy.</h2>
-            <p>We source only the finest quality ingredients—pure desi ghee, premium nuts, and fresh milk—to ensure every bite is a moment of pure bliss. No artificial preservatives, just authentic taste.</p>
-            <Link to="/about" className="btn-primary">Learn More</Link>
+      <section className="section feature-section" style={{ backgroundColor: 'var(--primary-dark)' }}>
+        <div className="container feature-container">
+          <div className="feature-grid">
+            <div className="feature-image-wrapper">
+              <img src="/images/pure_ingredients_1783392308887.png" alt="Pure Indian sweet ingredients like desi ghee and premium nuts" className="feature-image" />
+            </div>
+            <div className="feature-content" style={{ color: 'var(--background)' }}>
+              <h2 style={{ color: 'var(--secondary)', marginBottom: '24px' }}>Pure Ingredients. Pure Joy.</h2>
+              <p style={{ color: 'var(--background)', opacity: 0.9, lineHeight: 1.8, marginBottom: '32px' }}>
+                We source only the finest quality ingredients—pure desi ghee, premium nuts, and fresh milk—to ensure every bite is a moment of pure bliss. No artificial preservatives, just authentic taste.
+              </p>
+              <Link to="/about" className="btn-primary" style={{ backgroundColor: 'var(--secondary)', color: 'var(--primary-dark)', borderColor: 'var(--secondary)' }}>
+                Discover Our Process
+              </Link>
+            </div>
           </div>
         </div>
       </section>
