@@ -42,7 +42,21 @@ const Footer = () => {
             </a>
           </p>
           <div style={{ marginTop: '20px' }}>
-            <Link to="/contact" className="btn-primary" style={{ display: 'inline-block', padding: '10px 32px', textDecoration: 'none', fontWeight: 'bold' }}>
+            <Link 
+              to="/contact" 
+              style={{ 
+                display: 'inline-block', 
+                padding: '10px 32px', 
+                textDecoration: 'none', 
+                fontWeight: 'bold',
+                backgroundColor: 'var(--secondary)',
+                color: 'var(--primary-dark)',
+                borderRadius: 'var(--radius)',
+                border: '2px solid var(--secondary)',
+                transition: 'var(--transition)',
+                letterSpacing: '0.5px'
+              }}
+            >
               Contact Us
             </Link>
           </div>
