@@ -8,7 +8,7 @@ import { useAuth } from '../context/AuthContext';
 import './Checkout.css';
 
 // CONFIGURATION: Set your UPI ID here to receive payments directly
-const MERCHANT_UPI_ID = "yourname@upi"; // Replace this with your actual UPI ID (e.g., yourname@okaxis, yournumber@ybl)
+const MERCHANT_UPI_ID = "7406959072@yapl"; // Replace this with your actual UPI ID (e.g., yourname@okaxis, yournumber@ybl)
 const MERCHANT_NAME = "Namma Sihii Sweets";
 
 const Checkout = () => {
