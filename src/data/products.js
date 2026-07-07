@@ -115,7 +115,7 @@ export const products = [
     price: 110,
     weight: "2 Pcs",
     description: "Flaky, buttery French-style croissants baked fresh every morning.",
-    image: "/images/realistic_shop.png",
+    image: "/images/croissant_bakery.png",
     isBestseller: false,
     isNew: true
   },
@@ -127,7 +127,7 @@ export const products = [
     price: 550,
     weight: "12 Pcs",
     description: "Handcrafted dark, milk, and white chocolate truffles with rich fillings.",
-    image: "/images/bengali_sweets_1783391376097.png",
+    image: "/images/assorted_chocolates.png",
     isBestseller: true,
     isNew: true
   },
@@ -139,7 +139,7 @@ export const products = [
     price: 1200,
     weight: "1.5 kg",
     description: "A curated selection of our finest sweets, dry fruits, and namkeens in a premium gift box.",
-    image: "/images/natural_ingredients_1783392496282.png",
+    image: "https://placehold.co/400x400/f8f9fa/c8a078?text=Premium+Gift+Hamper",
     isBestseller: true,
     isNew: false
   },
@@ -151,7 +151,7 @@ export const products = [
     price: 350,
     weight: "1 Pc",
     description: "Hand-poured soy wax candle with a calming, traditional sandalwood scent.",
-    image: "/images/traditional_sweets_1783391365914.png",
+    image: "https://placehold.co/400x400/f8f9fa/c8a078?text=Sandalwood+Candle",
     isBestseller: false,
     isNew: true
   },
@@ -163,7 +163,7 @@ export const products = [
     price: 450,
     weight: "100 ml",
     description: "A pure, sweet-smelling room fragrance reminiscent of an authentic Indian sweet shop.",
-    image: "/images/natural_ingredients_1783392496282.png",
+    image: "https://placehold.co/400x400/f8f9fa/c8a078?text=Room+Fragrance",
     isBestseller: false,
     isNew: true
   },
@@ -175,7 +175,7 @@ export const products = [
     price: 250,
     weight: "500 ml",
     description: "Rich, creamy artisanal ice cream made with real Alphonso mangoes and roasted pistachios.",
-    image: "/images/sugar_free_1783391385498.png",
+    image: "/images/mango_ice_cream.png",
     isBestseller: true,
     isNew: true
   },
@@ -187,7 +187,7 @@ export const products = [
     price: 280,
     weight: "250g",
     description: "Strong, full-bodied CTC black tea sourced directly from the finest estates in Assam.",
-    image: "/images/realistic_shop.png",
+    image: "https://placehold.co/400x400/f8f9fa/c8a078?text=Assam+Tea",
     isBestseller: false,
     isNew: false
   },
@@ -199,7 +199,7 @@ export const products = [
     price: 320,
     weight: "250g",
     description: "A delicious, porous Rajasthani sweet soaked in sugar syrup, perfect for festivals.",
-    image: "/images/jalebi_1783132993712.png",
+    image: "/images/ghewar_sweet.png",
     isBestseller: false,
     isNew: true
   },
@@ -211,7 +211,7 @@ export const products = [
     price: 650,
     weight: "500g",
     description: "Classic black forest cake with fresh cream and dark chocolate shavings.",
-    image: "/images/realistic_shop.png",
+    image: "/images/black_forest_cake.png",
     isBestseller: true,
     isNew: false
   },
@@ -223,7 +223,7 @@ export const products = [
     price: 85,
     weight: "1 Pc",
     description: "Soft, fluffy doughnut coated in rich, dark chocolate glaze.",
-    image: "/images/bengali_sweets_1783391376097.png",
+    image: "https://placehold.co/400x400/f8f9fa/c8a078?text=Chocolate+Doughnut",
     isBestseller: false,
     isNew: true
   },
@@ -235,7 +235,7 @@ export const products = [
     price: 150,
     weight: "250 ml",
     description: "Refreshing, creamy iced coffee blended with traditional South Indian filter decoction.",
-    image: "/images/sugar_free_1783391385498.png",
+    image: "https://placehold.co/400x400/f8f9fa/c8a078?text=Cold+Coffee",
     isBestseller: true,
     isNew: false
   },
@@ -247,7 +247,7 @@ export const products = [
     price: 120,
     weight: "150g",
     description: "Crispy, savory bread sticks baked with a blend of cheese and Italian herbs.",
-    image: "/images/namkeen_1783391394817.png",
+    image: "https://placehold.co/400x400/f8f9fa/c8a078?text=Cheese+Sticks",
     isBestseller: false,
     isNew: false
   },
@@ -259,7 +259,7 @@ export const products = [
     price: 250,
     weight: "300g",
     description: "Melt-in-your-mouth, rich butter cookies baked to perfection.",
-    image: "/images/realistic_shop.png",
+    image: "https://placehold.co/400x400/f8f9fa/c8a078?text=Butter+Cookies",
     isBestseller: true,
     isNew: true
   },
@@ -271,7 +271,7 @@ export const products = [
     price: 60,
     weight: "400g",
     description: "Freshly baked, soft and nutritious 100% whole wheat bread loaf.",
-    image: "/images/realistic_shop.png",
+    image: "https://placehold.co/400x400/f8f9fa/c8a078?text=Sandwich+Bread",
     isBestseller: false,
     isNew: false
   }
