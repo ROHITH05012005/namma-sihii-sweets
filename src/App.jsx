@@ -10,17 +10,7 @@ import Checkout from './pages/Checkout';
 import Admin from './pages/Admin';
 import './App.css';
 
-// A simple About component placeholder
-const About = () => (
-  <div className="container section" style={{ minHeight: '60vh', textAlign: 'center', paddingTop: '100px' }}>
-    <h1>Our Story</h1>
-    <p style={{ maxWidth: '600px', margin: '20px auto', color: 'var(--text-secondary)' }}>
-      Namma Sihii Sweets started with a simple vision: to bring the authentic taste of traditional Indian sweets to modern homes. 
-      Using recipes passed down through generations, we prepare our delicacies with pure ghee, premium nuts, and a lot of love.
-    </p>
-  </div>
-);
-
+import About from './pages/About';
 function App() {
   return (
     <div className="app-container">
