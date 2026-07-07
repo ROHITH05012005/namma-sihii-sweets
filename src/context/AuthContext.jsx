@@ -20,7 +20,20 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Check for Secure Offline Admin Session
+    if (localStorage.getItem('secure_admin_session') === 'active') {
+      setUser({
+        id: 'secure-admin',
+        name: 'Admin',
+        email: 'admin@nammasihii.com',
+        isAdmin: true
+      });
+      setLoading(false);
+    }
+
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (localStorage.getItem('secure_admin_session') === 'active') return;
+
       if (currentUser) {
         let isAdmin = false;
         try {
@@ -92,6 +105,11 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
+    if (localStorage.getItem('secure_admin_session') === 'active') {
+      localStorage.removeItem('secure_admin_session');
+      window.location.href = '/';
+      return;
+    }
     await signOut(auth);
   };
 

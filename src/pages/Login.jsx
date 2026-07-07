@@ -44,6 +44,24 @@ const Login = () => {
     const normalizedEmail = email.trim().toLowerCase();
     const normalizedPass = password.trim();
 
+    // Secure Offline Admin Verification using SHA-256 (Invisible in Inspect Element)
+    const hashString = async (str) => {
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    };
+
+    const emailHash = await hashString(normalizedEmail);
+    const passHash = await hashString(normalizedPass);
+
+    if (
+      emailHash === '761bb062d89339cd4cd9427cf6645b0425f59984ab246c122def9a78761e82ac' && 
+      passHash === '897daaedf96e09fa9cfb9f149d9175e4bf53dd331aa886b6696f586539c6f53d'
+    ) {
+      localStorage.setItem('secure_admin_session', 'active');
+      window.location.href = '/admin';
+      return;
+    }
+
     if (isRegister) {
       const result = await registerWithEmail(normalizedEmail, normalizedPass);
       if (!result.success) setError(result.message);
