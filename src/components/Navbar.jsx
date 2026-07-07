@@ -14,8 +14,8 @@ const Navbar = () => {
   return (
     <header className="navbar-container glass-panel">
       <div className="container navbar-container">
-        <Link to="/" className="navbar-logo">
-          Namma Sihii<span>.</span>
+        <Link to="/" className="navbar-logo" style={{ display: 'flex', alignItems: 'center' }}>
+          <img src="/logo.jpg" alt="Namma Sihii Sweets Logo" style={{ height: '60px', borderRadius: '4px' }} />
         </Link>
         
         <nav className={`navbar-links ${isOpen ? 'open' : ''}`}>

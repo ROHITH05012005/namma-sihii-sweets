@@ -1,21 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
 
 :root {
-  /* Red Theme Palette */
-  --primary: #d32f2f;
-  --primary-light: #ff6659;
-  --primary-dark: #9a0007;
+  /* Maroon & Gold Theme Palette */
+  --primary: #4a0e17; /* Deep Maroon */
+  --primary-light: #7a2835;
+  --primary-dark: #2a050a;
   
-  --secondary: #fbc02d; /* Gold accent for sweets */
-  --secondary-light: #fff263;
-  --secondary-dark: #c49000;
+  --secondary: #c5a059; /* Gold */
+  --secondary-light: #e8c98b;
+  --secondary-dark: #967434;
   
-  --background: #fffcf9; /* Very light warm cream */
+  --background: #f4e8d1; /* Creamy beige */
   --surface: #ffffff;
   --surface-hover: #fff3e0;
   
-  --text-primary: #212121;
-  --text-secondary: #757575;
+  --text-primary: #2a050a;
+  --text-secondary: #5a383d;
   --text-on-primary: #ffffff;
   
   --border: #e0e0e0;

@@ -7,7 +7,9 @@ const Footer = () => {
     <footer className="footer-container">
       <div className="container footer-content">
         <div className="footer-brand">
-          <h2 className="footer-logo">Namma Sihii<span>.</span></h2>
+          <Link to="/" style={{ display: 'inline-block', marginBottom: '16px' }}>
+            <img src="/logo.jpg" alt="Namma Sihii Sweets Logo" style={{ height: '70px', borderRadius: '4px' }} />
+          </Link>
           <p className="footer-desc">
             Authentic Indian sweets made with pure ingredients, love, and tradition. Delivered fresh to your doorstep.
           </p>
