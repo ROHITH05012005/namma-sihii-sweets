@@ -11,8 +11,8 @@
   --secondary-dark: #967434;
   
   --background: #f4e8d1; /* Creamy beige */
-  --surface: #ffffff;
-  --surface-hover: #fff3e0;
+  --surface: #f4e8d1; 
+  --surface-hover: #f4e8d1;
   
   --text-primary: #2a050a;
   --text-secondary: #5a383d;
@@ -109,10 +109,10 @@ button {
 }
 
 .glass-panel {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(244, 232, 209, 0.6);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(197, 160, 89, 0.3); /* Gold border */
   box-shadow: var(--shadow-sm);
   border-radius: var(--radius);
 }
