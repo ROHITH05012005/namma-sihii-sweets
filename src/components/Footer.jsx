@@ -44,7 +44,7 @@ const Footer = () => {
         </div>
         
         <div className="footer-links-group footer-categories-grid">
-          <h3>Categories</h3>
+          <h3><Link to="/shop" style={{ color: 'var(--secondary)', textDecoration: 'none' }}>Categories</Link></h3>
           <div className="categories-grid-container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
             {categories.map(cat => (
             <Link key={cat.id || cat.name} to={cat.link || `/shop?category=${encodeURIComponent(cat.name)}`}>
@@ -55,7 +55,7 @@ const Footer = () => {
         </div>
         
         <div className="footer-newsletter">
-          <h3>Stay Sweet</h3>
+          <h3><Link to="/shop" style={{ color: 'var(--secondary)', textDecoration: 'none' }}>Stay Sweet</Link></h3>
           <p>Subscribe to our newsletter for updates on new arrivals and special offers.</p>
           {subscribed ? (
             <div style={{ color: 'var(--secondary)', padding: '10px 0', fontWeight: 'bold' }}>
