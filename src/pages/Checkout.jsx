@@ -49,6 +49,7 @@ const Checkout = () => {
           pincode: data.postcode || ''
         });
       } catch (error) {
+        console.error('Location detection failed:', error);
         alert('Could not detect location. Please enter manually.');
       }
     }, () => {

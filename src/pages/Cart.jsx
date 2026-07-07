@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Trash2, Plus, Minus, ArrowLeft } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import './Cart.css';
 
 const Cart = () => {
-  const { cart, removeFromCart, updateQuantity, cartTotal, clearCart } = useCart();
-  const [isCheckingOut, setIsCheckingOut] = useState(false);
-  const [orderComplete, setOrderComplete] = useState(false);
+  const { cart, removeFromCart, updateQuantity, cartTotal } = useCart();
   const navigate = useNavigate();
 
   const handleCheckout = (e) => {
@@ -87,9 +85,8 @@ const Cart = () => {
           <button 
             className="btn-primary btn-checkout"
             onClick={handleCheckout}
-            disabled={isCheckingOut}
           >
-            {isCheckingOut ? 'Processing...' : 'Proceed to Checkout'}
+            Proceed to Checkout
           </button>
           
           {cartTotal < 1000 && (

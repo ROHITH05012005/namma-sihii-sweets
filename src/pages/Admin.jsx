@@ -98,6 +98,7 @@ const Admin = () => {
       try {
         await deleteDoc(doc(db, 'products', productId));
       } catch (error) {
+        console.error("Failed to delete product:", error);
         alert("Failed to delete product.");
       }
     }
@@ -108,6 +109,7 @@ const Admin = () => {
       try {
         await deleteDoc(doc(db, 'feedback', feedbackId));
       } catch (error) {
+        console.error("Failed to delete feedback:", error);
         alert("Failed to delete feedback.");
       }
     }
@@ -299,7 +301,7 @@ const Admin = () => {
                     <button className="btn-secondary" onClick={async () => {
                       try {
                         setInitLoading(true);
-                        const { defaultCategories } = await import('../context/CategoryContext');
+                        const { defaultCategories } = await import('../data/defaultCategories');
                         for (let cat of defaultCategories) {
                           const catId = cat.name.toLowerCase().replace(/\s+/g, '-');
                           await setDoc(doc(db, 'categories', catId), cat);

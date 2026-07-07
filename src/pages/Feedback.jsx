@@ -99,8 +99,8 @@ const Feedback = () => {
           value={form.message}
           onChange={e => setForm({ ...form, message: e.target.value })}
         />
-        <button type="submit" className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '14px 32px', width: 'fit-content' }}>
-          Submit Feedback <Send size={18} />
+        <button type="submit" disabled={loading} className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '14px 32px', width: 'fit-content' }}>
+          {loading ? 'Submitting...' : 'Submit Feedback'} <Send size={18} />
         </button>
       </form>
     </StaticPage>

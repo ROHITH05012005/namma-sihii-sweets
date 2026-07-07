@@ -6,31 +6,6 @@ import { products } from '../data/products';
 import { useCategories } from '../context/CategoryContext';
 import './Shop.css';
 
-const categoryStructure = [
-  { 
-    name: 'Sweets', 
-    subcategories: ['Ghewars', 'Ghee & Khova Sweets', 'Packed Sweets', 'Assorted Sweets', 'Special Kaju Sweets', 'All Sweet Delights', 'Bengali Sweets'] 
-  },
-  { 
-    name: 'Namkeens',
-    subcategories: ['Roasted Namkeens']
-  },
-  { 
-    name: 'Snacks',
-    subcategories: ['Benne Specials']
-  },
-  { 
-    name: 'Bakery & Boulangerie',
-    subcategories: ['Cakes', 'Doughnuts', 'Beverages', 'Sticks', 'Cookies and Biscuits', 'Breads', 'Crossiants & Rolls']
-  },
-  { name: 'Chocolates', subcategories: [] },
-  { name: 'Gifting', subcategories: [] },
-  { name: 'Candles', subcategories: [] },
-  { name: 'Fragrances', subcategories: [] },
-  { name: 'Ice creams', subcategories: [] },
-  { name: 'Tea', subcategories: [] }
-];
-
 const Shop = () => {
   const { categories: dynamicCategories } = useCategories();
   const location = useLocation();
@@ -46,8 +21,9 @@ const Shop = () => {
   const [isSubExpanded, setIsSubExpanded] = useState(true);
   
   useEffect(() => {
-    const category = queryParams.get('category') || 'all';
-    const subcategory = queryParams.get('subcategory') || '';
+    const params = new URLSearchParams(location.search);
+    const category = params.get('category') || 'all';
+    const subcategory = params.get('subcategory') || '';
     
     setFilter(category);
     setSubFilter(subcategory);

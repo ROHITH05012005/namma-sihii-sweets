@@ -8,3 +8,39 @@
 .main-content {
   flex-grow: 1;
 }
+
+/* Suspense Loading Spinner */
+.suspense-loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  gap: 16px;
+}
+
+.suspense-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(74, 2, 0, 0.15);
+  border-left-color: var(--primary);
+  border-radius: 50%;
+  animation: suspense-spin 1s linear infinite;
+}
+
+.suspense-loader-text {
+  font-family: var(--font-sans);
+  color: var(--primary);
+  font-weight: 500;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+}
+
+@keyframes suspense-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

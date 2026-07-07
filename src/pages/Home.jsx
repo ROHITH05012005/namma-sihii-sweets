@@ -12,11 +12,12 @@ const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
+    if (categories.length === 0) return;
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % categories.length);
     }, 2500);
     return () => clearInterval(timer);
-  }, []);
+  }, [categories.length]);
 
   return (
     <div className="home-page">
