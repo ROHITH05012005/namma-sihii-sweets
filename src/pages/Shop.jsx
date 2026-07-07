@@ -37,6 +37,7 @@ const Shop = () => {
   
   const initialCategory = queryParams.get('category') || 'all';
   const initialSubcategory = queryParams.get('subcategory') || '';
+  const searchQueryParam = queryParams.get('search') || '';
 
   const [filter, setFilter] = useState(initialCategory);
   const [subFilter, setSubFilter] = useState(initialSubcategory);
@@ -73,6 +74,9 @@ const Shop = () => {
   const activeSubs = subFilter ? subFilter.split(',') : [];
   
   const filteredProducts = products.filter(p => {
+    if (searchQueryParam && !p.name.toLowerCase().includes(searchQueryParam.toLowerCase())) {
+      return false;
+    }
     if (filter !== 'all' && p.category.toLowerCase() !== filter.toLowerCase()) return false;
     
     if (activeSubs.length > 0 && p.subcategory) {
