@@ -8,6 +8,7 @@ import { products as localProducts } from '../data/products';
 import { Package, ShoppingBag, LayoutList, Trash2, Edit } from 'lucide-react';
 import ProductModal from '../components/admin/ProductModal';
 import CategoryModal from '../components/admin/CategoryModal';
+import OrderDetailsModal from '../components/admin/OrderDetailsModal';
 import './Admin.css';
 
 const Admin = () => {
@@ -27,6 +28,8 @@ const Admin = () => {
   const [productToEdit, setProductToEdit] = useState(null);
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
   const [categoryToEdit, setCategoryToEdit] = useState(null);
+  const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
+  const [orderToView, setOrderToView] = useState(null);
 
   useEffect(() => {
     if (!loading && (!user || !user.isAdmin)) {
@@ -175,18 +178,21 @@ const Admin = () => {
                               </span>
                             </td>
                             <td>
-                              <select 
-                                value={order.status} 
-                                onChange={(e) => updateOrderStatus(order.id, e.target.value)}
-                                className="status-dropdown"
-                              >
-                                <option value="pending_cod">Pending COD</option>
-                                <option value="pending_upi">Pending UPI</option>
-                                <option value="processing">Processing</option>
-                                <option value="shipped">Shipped</option>
-                                <option value="delivered">Delivered</option>
-                                <option value="cancelled">Cancelled</option>
-                              </select>
+                              <div style={{display:'flex', gap:'8px', alignItems:'center'}}>
+                                <select 
+                                  value={order.status} 
+                                  onChange={(e) => updateOrderStatus(order.id, e.target.value)}
+                                  className="status-dropdown"
+                                >
+                                  <option value="pending_cod">Pending COD</option>
+                                  <option value="pending_upi">Pending UPI</option>
+                                  <option value="processing">Processing</option>
+                                  <option value="shipped">Shipped</option>
+                                  <option value="delivered">Delivered</option>
+                                  <option value="cancelled">Cancelled</option>
+                                </select>
+                                <button className="btn-secondary" style={{padding: '4px 8px', fontSize:'12px'}} onClick={() => { setOrderToView(order); setIsOrderModalOpen(true); }}>View</button>
+                              </div>
                             </td>
                           </tr>
                         ))}
@@ -325,6 +331,12 @@ const Admin = () => {
         isOpen={isCategoryModalOpen}
         onClose={() => setIsCategoryModalOpen(false)}
         categoryToEdit={categoryToEdit}
+      />
+
+      <OrderDetailsModal
+        isOpen={isOrderModalOpen}
+        onClose={() => setIsOrderModalOpen(false)}
+        order={orderToView}
       />
     </div>
   );
