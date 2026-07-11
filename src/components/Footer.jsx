@@ -113,7 +113,7 @@ const Footer = () => {
           <div className="footer-copy">
             <p>© {new Date().getFullYear()} Namma Sihi Sweets. All Rights Reserved.</p>
             <p className="developed-by">
-              Developed by <a href="https://fueraaa.netlify.app" target="_blank" rel="noopener noreferrer">Fuera</a>
+              Built by <a href="https://www.fuera.in.net/" target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "underline" }}><strong>FUERA</strong></a>
             </p>
           </div>
           <div className="footer-payments">
