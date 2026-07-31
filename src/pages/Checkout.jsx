@@ -117,6 +117,42 @@ const Checkout = () => {
         navigate('/');
         return;
       }
+      
+      if (paymentMethod === 'phonepe') {
+        const docRef = await addDoc(collection(db, 'orders'), {
+          userId: user?.id || 'guest',
+          userName: address.name || user?.name || 'Guest',
+          userPhone: address.phone || user?.phone || 'N/A',
+          amount: finalAmount,
+          method: 'phonepe',
+          address: address,
+          items: cart,
+          status: 'pending_payment',
+          createdAt: serverTimestamp()
+        });
+        
+        const response = await fetch('/api/create-phonepe-order', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            orderId: docRef.id,
+            amount: finalAmount,
+            userId: user?.id || 'guest',
+            userPhone: address.phone || user?.phone || '9999999999'
+          })
+        });
+        
+        const data = await response.json();
+        if (data.success && data.redirectUrl) {
+          window.location.href = data.redirectUrl;
+        } else {
+          alert('Failed to initiate payment. Please try again.');
+          setLoading(false);
+        }
+        return;
+      }
     } catch (err) {
       console.error(err);
       alert('Failed to place order: ' + err.message);
@@ -196,6 +232,13 @@ const Checkout = () => {
           </div>
           <h2 style={{ marginTop: '32px' }}>Payment Method</h2>
           <div className="payment-options">
+            <div className={`payment-option ${paymentMethod === 'phonepe' ? 'selected' : ''}`} onClick={() => setPaymentMethod('phonepe')}>
+              <input type="radio" checked={paymentMethod === 'phonepe'} readOnly />
+              <div>
+                <strong>PhonePe / Any UPI App</strong>
+                <p>Pay securely via PhonePe Gateway.</p>
+              </div>
+            </div>
             <div className={`payment-option ${paymentMethod === 'cod' ? 'selected' : ''}`} onClick={() => setPaymentMethod('cod')}>
               <input type="radio" checked={paymentMethod === 'cod'} readOnly />
               <div>
