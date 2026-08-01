@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://namma-sihii-sweets.netlify.app/</loc>
+    <loc>https://nammasihiisweets.netlify.app/</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://namma-sihii-sweets.netlify.app/about</loc>
+    <loc>https://nammasihiisweets.netlify.app/about</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://namma-sihii-sweets.netlify.app/contact</loc>
+    <loc>https://nammasihiisweets.netlify.app/contact</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

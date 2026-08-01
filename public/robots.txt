@@ -7,4 +7,4 @@ Disallow: /profile
 Disallow: /checkout
 Disallow: /payment-status
 
-Sitemap: https://namma-sihii-sweets.netlify.app/sitemap.xml
+Sitemap: https://nammasihiisweets.netlify.app/sitemap.xml
