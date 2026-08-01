@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Prevent indexing of private/transactional pages
+Disallow: /admin
+Disallow: /profile
+Disallow: /checkout
+Disallow: /payment-status
+
+Sitemap: https://namma-sihii-sweets.netlify.app/sitemap.xml
